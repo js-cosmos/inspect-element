@@ -1,9 +1,9 @@
 import { get as chromeGet, set as chromeSet } from './chrome'
 
-export function get (...args) {
-  return chromeGet(...args)
+export function get(key) {
+  return chromeGet(key)
 }
 
-export function set (...args) {
-  return chromeSet(...args)
+export function set(key, value) {
+  return chromeSet(key, value)
 }
