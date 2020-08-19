@@ -16,10 +16,10 @@ export default {
 </script>
 
 <style>
-body {
-  width: 300px;
-  height: 500px;
-  overflow: scroll;
+.v-application {
+  min-width: 300px;
+  min-height: 500px;
+  overflow: auto;
 }
 
 .v-subheader {
