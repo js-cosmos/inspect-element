@@ -4,9 +4,11 @@
     v-list-item.py-1
       color-picker( label="Cover Color" v-model="coverColor" )
     v-list-item.py-1
-      color-picker( label="Margin Color" v-model="marginColor" )
-    v-list-item.py-1
       color-picker( label="Padding Color" v-model="paddingColor" )
+    v-list-item.py-1
+      color-picker( label="Border Color" v-model="borderColor" )
+    v-list-item.py-1
+      color-picker( label="Margin Color" v-model="marginColor" )
 </template>
 
 <script>
@@ -21,20 +23,24 @@ export default {
   },
 
   data: () => ({
-    paddingColor: '#63CE1B81',
-    marginColor: '#D5671790',
     coverColor: '#2E92AF80',
+    paddingColor: '#63CE1B81',
+    borderColor: '#f9f30dc2',
+    marginColor: '#D5671790',
   }),
 
   watch: {
+    coverColor() {
+      chrome.storage.sync.set({ coverColor: this.coverColor })
+    },
     paddingColor() {
-      chrome.storage.sync.set({ [STORAGE_KEYS.paddingColor]: this.paddingColor })
+      chrome.storage.sync.set({ paddingColor: this.paddingColor })
+    },
+    borderColor() {
+      chrome.storage.sync.set({ borderColor: this.borderColor })
     },
     marginColor() {
-      chrome.storage.sync.set({ [STORAGE_KEYS.marginColor]: this.marginColor })
-    },
-    coverColor() {
-      chrome.storage.sync.set({ [STORAGE_KEYS.coverColor]: this.coverColor })
+      chrome.storage.sync.set({ marginColor: this.marginColor })
     },
   },
 
@@ -42,11 +48,12 @@ export default {
     chrome.storage.sync.onChanged.addListener(this.handleStorageChange)
 
     chrome.storage.sync.get(
-      [STORAGE_KEYS.paddingColor, STORAGE_KEYS.marginColor, STORAGE_KEYS.coverColor],
-      ({ paddingColor, marginColor, coverColor }) => {
-        this.paddingColor = paddingColor
-        this.marginColor = marginColor
+      ['coverColor', 'paddingColor', 'borderColor', 'marginColor'],
+      ({ coverColor, paddingColor, borderColor, marginColor }) => {
         this.coverColor = coverColor
+        this.paddingColor = paddingColor
+        this.borderColor = borderColor
+        this.marginColor = marginColor
       },
     )
   },
@@ -57,9 +64,10 @@ export default {
 
   methods: {
     handleStorageChange(changes) {
-      if (changes[STORAGE_KEYS.paddingColor]) this.paddingColor = changes[STORAGE_KEYS.paddingColor].newValue
-      if (changes[STORAGE_KEYS.marginColor]) this.marginColor = changes[STORAGE_KEYS.marginColor].newValue
-      if (changes[STORAGE_KEYS.coverColor]) this.coverColor = changes[STORAGE_KEYS.coverColor].newValue
+      if (changes.coverColor) this.coverColor = changes.coverColor.newValue
+      if (changes.paddingColor) this.paddingColor = changes.paddingColor.newValue
+      if (changes.borderColor) this.borderColor = changes.borderColor.newValue
+      if (changes.marginColor) this.marginColor = changes.marginColor.newValue
     },
   },
 }
