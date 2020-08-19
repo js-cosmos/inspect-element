@@ -25,12 +25,9 @@ export default {
   created() {
     chrome.storage.sync.onChanged.addListener(this.handleStorageChange)
 
-    chrome.storage.sync.get(
-      ['mode'],
-      ({ mode }) => {
-        this.mode = mode
-      },
-    )
+    chrome.storage.sync.get(['mode'], ({ mode }) => {
+      this.mode = mode
+    })
   },
 
   beforeDestroy() {
