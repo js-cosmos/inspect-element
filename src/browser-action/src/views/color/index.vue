@@ -2,11 +2,11 @@
   v-list
     v-subheader.my-1.py-1 Colors
     v-list-item.py-1
-      color-picker( label="Cover Color" v-model="coverColor" mode="rgba" )
+      color-picker( label="Cover Color" v-model="coverColor" )
     v-list-item.py-1
-      color-picker( label="Margin Color" v-model="marginColor" mode="rgba" )
+      color-picker( label="Margin Color" v-model="marginColor" )
     v-list-item.py-1
-      color-picker( label="Padding Color" v-model="paddingColor" mode="rgba" )
+      color-picker( label="Padding Color" v-model="paddingColor" )
 </template>
 
 <script>
