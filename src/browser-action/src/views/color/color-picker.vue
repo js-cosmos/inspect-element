@@ -1,29 +1,32 @@
 <template lang="pug">
   v-menu( offset-y :close-on-content-click="false" )
     template( v-slot:activator="{ on, attrs }" )
-      v-btn.d-flex.justify-start(
-        small
-        style="width: 100%;"
-        :label="label"
+      v-btn.mx-2(
+        :id="id"
         v-bind="attrs"
         v-on="on"
-        text
+        small
+        icon
         )
-        v-icon( :color="paddingColor" ) mdi-format-color-fill
-        span.ml-2 {{ label }}
-    v-color-picker( :value="paddingColor" mode="hexa" @update:color="changeColor" )
+        v-icon( :color="color" ) mdi-format-color-fill
+      v-label( :for="id" ) {{ label }}
+    v-color-picker( :value="color" mode="hexa" @update:color="changeColor" )
 </template>
 
 <script>
 export default {
   model: {
     event: 'change',
-    prop: 'paddingColor',
+    prop: 'color',
   },
+
+  data: () => ({
+    id: Math.random().toString(36).slice(2)
+  }),
 
   props: {
     label: String,
-    paddingColor: String,
+    color: String,
   },
 
   methods: {

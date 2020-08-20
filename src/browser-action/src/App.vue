@@ -1,16 +1,19 @@
 <template lang="pug">
   v-app
+    mode
     color
 </template>
 
 <script>
 import Color from './views/color'
+import Mode from './views/mode'
 
 export default {
   name: 'App',
 
   components: {
     Color,
+    Mode,
   },
 }
 </script>
