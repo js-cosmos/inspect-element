@@ -13,7 +13,6 @@
 
 <script>
 import ColorPicker from './color-picker'
-import { STORAGE_KEYS } from '../../configs/index'
 
 export default {
   name: 'color',
