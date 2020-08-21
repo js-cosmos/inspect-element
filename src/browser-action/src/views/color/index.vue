@@ -22,10 +22,10 @@ export default {
   },
 
   data: () => ({
-    coverColor: '#2E92AF80',
-    paddingColor: '#63CE1B81',
-    borderColor: '#f9f30dc2',
-    marginColor: '#D5671790',
+    coverColor: '#62C0CC80',
+    paddingColor: '#62D56E80',
+    borderColor: '#DDE64880',
+    marginColor: '#FC923580',
   }),
 
   watch: {
@@ -49,10 +49,10 @@ export default {
     chrome.storage.sync.get(
       ['coverColor', 'paddingColor', 'borderColor', 'marginColor'],
       ({ coverColor, paddingColor, borderColor, marginColor }) => {
-        this.coverColor = coverColor
-        this.paddingColor = paddingColor
-        this.borderColor = borderColor
-        this.marginColor = marginColor
+        if (coverColor) this.coverColor = coverColor
+        if (paddingColor) this.paddingColor = paddingColor
+        if (borderColor) this.borderColor = borderColor
+        if (marginColor) this.marginColor = marginColor
       },
     )
   },
@@ -63,10 +63,10 @@ export default {
 
   methods: {
     handleStorageChange(changes) {
-      if (changes.coverColor) this.coverColor = changes.coverColor.newValue
-      if (changes.paddingColor) this.paddingColor = changes.paddingColor.newValue
-      if (changes.borderColor) this.borderColor = changes.borderColor.newValue
-      if (changes.marginColor) this.marginColor = changes.marginColor.newValue
+      if (changes.coverColor && changes.coverColor.newValue) this.coverColor = changes.coverColor.newValue
+      if (changes.paddingColor && changes.paddingColor.newValue) this.paddingColor = changes.paddingColor.newValue
+      if (changes.borderColor && changes.borderColor.newValue) this.borderColor = changes.borderColor.newValue
+      if (changes.marginColor && changes.marginColor.newValue) this.marginColor = changes.marginColor.newValue
     },
   },
 }

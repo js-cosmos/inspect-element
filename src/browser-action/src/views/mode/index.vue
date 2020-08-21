@@ -3,8 +3,8 @@
     v-subheader Mode
     v-list-item
       v-radio-group.pl-3.mt-1( v-model="mode" hide-details="auto" )
-        v-radio( label="Inspect by content" value="by-content" )
-        v-radio( label="Inspect by others" value="by-others" )
+        v-radio( label="Inspect by content" value="content" )
+        v-radio( label="Inspect by margin" value="margin" )
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
   name: 'mode',
 
   data: () => ({
-    mode: 'by-content',
+    mode: 'content',
   }),
 
   watch: {
@@ -26,7 +26,7 @@ export default {
     chrome.storage.sync.onChanged.addListener(this.handleStorageChange)
 
     chrome.storage.sync.get(['mode'], ({ mode }) => {
-      this.mode = mode
+      if (mode) this.mode = mode
     })
   },
 
@@ -36,7 +36,7 @@ export default {
 
   methods: {
     handleStorageChange(changes) {
-      if (changes.mode) this.mode = changes.mode.newValue
+      if (changes.mode && changes.mode.newValue) this.mode = changes.mode.newValue
     },
   },
 }
