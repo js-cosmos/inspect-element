@@ -1,9 +1,9 @@
 import { appendCoverElement, removeCoverElement } from './cover-element'
 
-function isKeyCombinationActive() {
+const isKeyCombinationActive = () => {
   return event.metaKey
 }
-function onMousemove(event) {
+const onMousemove = event => {
   if (!event || !event.target || event.target === document || isKeyCombinationActive(event) === false) {
     removeCoverElement()
     return

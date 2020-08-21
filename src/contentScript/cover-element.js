@@ -1,61 +1,6 @@
 // all use the content box to compute top, width, etc.
 
-let coverColor = 'blue'
-let paddingColor = 'green'
-let borderColor = 'yellow'
-let marginColor = 'orange'
-
-chrome.storage.sync.get(
-  ['coverColor', 'paddingColor', 'borderColor', 'marginColor'],
-  ({ coverColor: _coverColor, paddingColor: _paddingColor, borderColor: _borderColor, marginColor: _marginColor }) => {
-    coverColor = _coverColor
-    paddingColor = _paddingColor
-    borderColor = _borderColor
-    marginColor = _marginColor
-  },
-)
-
-chrome.storage.sync.onChanged.addListener(changes => {
-  if (changes.coverColor) coverColor = changes.coverColor.newValue
-  if (changes.paddingColor) paddingColor = changes.paddingColor.newValue
-  if (changes.borderColor) borderColor = changes.borderColor.newValue
-  if (changes.marginColor) marginColor = changes.marginColor.newValue
-})
-
-const coverElements = {
-  cover: createElement(),
-  padding: createElement(),
-  border: createElement(),
-  margin: createElement(),
-}
-
-// Append cover element to body
-export function appendCoverElement(target) {
-  // throw Error('Not yet implemented.')
-
-  for (const element of Object.values(coverElements))
-    if (document.body.contains(element) === false) document.body.appendChild(element)
-
-  const computedStyle = window.getComputedStyle(target)
-  const boundingClicentRect = target.getBoundingClientRect()
-
-  setCoverStyle(coverElements.cover, computedStyle, boundingClicentRect)
-  setPaddingStyle(coverElements.padding, computedStyle, boundingClicentRect)
-  setBorderStyle(coverElements.border, computedStyle, boundingClicentRect)
-  setMarginStyle(coverElements.margin, computedStyle, boundingClicentRect)
-}
-
-export function removeCoverElement() {
-  for (const element of Object.values(coverElements)) {
-    try {
-      document.body.removeChild(element)
-    } catch (error) {
-      // ignore
-    }
-  }
-}
-
-function setCoverStyle(element, computedStyle, boundingClicentRect) {
+const setCoverStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.backgroundColor = coverColor
   element.style.top = getContentTop(computedStyle, boundingClicentRect) + 'px'
   element.style.left = getContentLeft(computedStyle, boundingClicentRect) + 'px'
@@ -63,7 +8,7 @@ function setCoverStyle(element, computedStyle, boundingClicentRect) {
   element.style.width = getContentWidth(computedStyle, boundingClicentRect) + 'px'
 }
 
-function setPaddingStyle(element, computedStyle, boundingClicentRect) {
+const setPaddingStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.top = getContentTop(computedStyle, boundingClicentRect) - getPaddingTop(computedStyle) + 'px'
   element.style.left = getContentLeft(computedStyle, boundingClicentRect) - getPaddingLeft(computedStyle) + 'px'
   element.style.height = getContentHeight(computedStyle, boundingClicentRect) + 'px'
@@ -75,7 +20,7 @@ function setPaddingStyle(element, computedStyle, boundingClicentRect) {
   element.style.borderLeftWidth = getPaddingLeft(computedStyle) + 'px'
 }
 
-function setBorderStyle(element, computedStyle, boundingClicentRect) {
+const setBorderStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.top =
     getContentTop(computedStyle, boundingClicentRect) -
     getPaddingTop(computedStyle) -
@@ -103,7 +48,7 @@ function setBorderStyle(element, computedStyle, boundingClicentRect) {
   element.style.borderLeftWidth = getBorderLeftWidth(computedStyle) + 'px'
 }
 
-function setMarginStyle(element, computedStyle, boundingClicentRect) {
+const setMarginStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.top =
     getContentTop(computedStyle, boundingClicentRect) -
     getPaddingTop(computedStyle) -
@@ -137,13 +82,13 @@ function setMarginStyle(element, computedStyle, boundingClicentRect) {
   element.style.borderLeftWidth = getMarginLeft(computedStyle) + 'px'
 }
 
-function createElement() {
+const createElement = () => {
   const element = document.createElement('DIV')
   setCommonStyle(element)
   return element
 }
 
-function setCommonStyle(element) {
+const setCommonStyle = element => {
   element.dataset['inspectElement'] = 'inspectElement'
   element.style.position = 'fixed'
   element.style.zIndex = 9999
@@ -155,65 +100,120 @@ function setCommonStyle(element) {
   element.style.boxSizing = 'content-box'
 }
 
-function getContentTop(computedStyle, boundingClicentRect) {
+const getContentTop = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.top + getPaddingTop(computedStyle) + getBorderTopWidth(computedStyle)
 }
 
-function getContentRight(computedStyle, boundingClicentRect) {
+const getContentRight = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.right - getPaddingRight(computedStyle) - getBorderRightWidth(computedStyle)
 }
 
-function getContentBottom(computedStyle, boundingClicentRect) {
+const getContentBottom = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.bottom - getPaddingBottom(computedStyle) - getBorderBottomWidth(computedStyle)
 }
 
-function getContentLeft(computedStyle, boundingClicentRect) {
+const getContentLeft = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.left + getPaddingLeft(computedStyle) + getBorderLeftWidth(computedStyle)
 }
 
-function getContentWidth(computedStyle, boundingClicentRect) {
+const getContentWidth = (computedStyle, boundingClicentRect) => {
   return getContentRight(computedStyle, boundingClicentRect) - getContentLeft(computedStyle, boundingClicentRect)
 }
 
-function getContentHeight(computedStyle, boundingClicentRect) {
+const getContentHeight = (computedStyle, boundingClicentRect) => {
   return getContentBottom(computedStyle, boundingClicentRect) - getContentTop(computedStyle, boundingClicentRect)
 }
 
-function getPaddingTop(computedStyle) {
+const getPaddingTop = computedStyle => {
   return Math.max(parseInt(computedStyle.paddingTop, 10), 0)
 }
-function getPaddingRight(computedStyle) {
+const getPaddingRight = computedStyle => {
   return Math.max(parseInt(computedStyle.paddingRight, 10), 0)
 }
-function getPaddingBottom(computedStyle) {
+const getPaddingBottom = computedStyle => {
   return Math.max(parseInt(computedStyle.paddingBottom, 10), 0)
 }
-function getPaddingLeft(computedStyle) {
+const getPaddingLeft = computedStyle => {
   return Math.max(parseInt(computedStyle.paddingLeft, 10), 0)
 }
 
-function getBorderTopWidth(computedStyle) {
+const getBorderTopWidth = computedStyle => {
   return Math.max(parseInt(computedStyle.borderTopWidth, 10), 0)
 }
-function getBorderRightWidth(computedStyle) {
+const getBorderRightWidth = computedStyle => {
   return Math.max(parseInt(computedStyle.borderRightWidth, 10), 0)
 }
-function getBorderBottomWidth(computedStyle) {
+const getBorderBottomWidth = computedStyle => {
   return Math.max(parseInt(computedStyle.borderBottomWidth, 10), 0)
 }
-function getBorderLeftWidth(computedStyle) {
+const getBorderLeftWidth = computedStyle => {
   return Math.max(parseInt(computedStyle.borderLeftWidth, 10), 0)
 }
 
-function getMarginTop(computedStyle) {
+const getMarginTop = computedStyle => {
   return Math.max(parseInt(computedStyle.marginTop, 10), 0)
 }
-function getMarginRight(computedStyle) {
+const getMarginRight = computedStyle => {
   return Math.max(parseInt(computedStyle.marginRight, 10), 0)
 }
-function getMarginBottom(computedStyle) {
+const getMarginBottom = computedStyle => {
   return Math.max(parseInt(computedStyle.marginBottom, 10), 0)
 }
-function getMarginLeft(computedStyle) {
+const getMarginLeft = computedStyle => {
   return Math.max(parseInt(computedStyle.marginLeft, 10), 0)
+}
+
+const coverElements = {
+  cover: createElement(),
+  padding: createElement(),
+  border: createElement(),
+  margin: createElement(),
+}
+
+let coverColor = 'blue'
+let paddingColor = 'green'
+let borderColor = 'yellow'
+let marginColor = 'orange'
+
+chrome.storage.sync.get(
+  ['coverColor', 'paddingColor', 'borderColor', 'marginColor'],
+  ({ coverColor: _coverColor, paddingColor: _paddingColor, borderColor: _borderColor, marginColor: _marginColor }) => {
+    coverColor = _coverColor
+    paddingColor = _paddingColor
+    borderColor = _borderColor
+    marginColor = _marginColor
+  },
+)
+
+chrome.storage.sync.onChanged.addListener(changes => {
+  if (changes.coverColor) coverColor = changes.coverColor.newValue
+  if (changes.paddingColor) paddingColor = changes.paddingColor.newValue
+  if (changes.borderColor) borderColor = changes.borderColor.newValue
+  if (changes.marginColor) marginColor = changes.marginColor.newValue
+})
+
+// Append cover element to body
+export const appendCoverElement = target => {
+  // throw Error('Not yet implemented.')
+
+  for (const element of Object.values(coverElements))
+    if (document.body.contains(element) === false) document.body.appendChild(element)
+
+  const computedStyle = window.getComputedStyle(target)
+  const boundingClicentRect = target.getBoundingClientRect()
+
+  setCoverStyle(coverElements.cover, computedStyle, boundingClicentRect)
+  setPaddingStyle(coverElements.padding, computedStyle, boundingClicentRect)
+  setBorderStyle(coverElements.border, computedStyle, boundingClicentRect)
+  setMarginStyle(coverElements.margin, computedStyle, boundingClicentRect)
+}
+
+export const removeCoverElement = () => {
+  for (const element of Object.values(coverElements)) {
+    try {
+      document.body.removeChild(element)
+    } catch (error) {
+      // ignore
+    }
+  }
 }
