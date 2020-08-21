@@ -180,40 +180,40 @@ function getContentHeight(computedStyle, boundingClicentRect) {
 }
 
 function getPaddingTop(computedStyle) {
-  return parseInt(computedStyle.paddingTop, 10)
+  return Math.max(parseInt(computedStyle.paddingTop, 10), 0)
 }
 function getPaddingRight(computedStyle) {
-  return parseInt(computedStyle.paddingRight, 10)
+  return Math.max(parseInt(computedStyle.paddingRight, 10), 0)
 }
 function getPaddingBottom(computedStyle) {
-  return parseInt(computedStyle.paddingBottom, 10)
+  return Math.max(parseInt(computedStyle.paddingBottom, 10), 0)
 }
 function getPaddingLeft(computedStyle) {
-  return parseInt(computedStyle.paddingLeft, 10)
+  return Math.max(parseInt(computedStyle.paddingLeft, 10), 0)
 }
 
 function getBorderTopWidth(computedStyle) {
-  return parseInt(computedStyle.borderTopWidth, 10)
+  return Math.max(parseInt(computedStyle.borderTopWidth, 10), 0)
 }
 function getBorderRightWidth(computedStyle) {
-  return parseInt(computedStyle.borderRightWidth, 10)
+  return Math.max(parseInt(computedStyle.borderRightWidth, 10), 0)
 }
 function getBorderBottomWidth(computedStyle) {
-  return parseInt(computedStyle.borderBottomWidth, 10)
+  return Math.max(parseInt(computedStyle.borderBottomWidth, 10), 0)
 }
 function getBorderLeftWidth(computedStyle) {
-  return parseInt(computedStyle.borderLeftWidth, 10)
+  return Math.max(parseInt(computedStyle.borderLeftWidth, 10), 0)
 }
 
 function getMarginTop(computedStyle) {
-  return parseInt(computedStyle.marginTop, 10)
+  return Math.max(parseInt(computedStyle.marginTop, 10), 0)
 }
 function getMarginRight(computedStyle) {
-  return parseInt(computedStyle.marginRight, 10)
+  return Math.max(parseInt(computedStyle.marginRight, 10), 0)
 }
 function getMarginBottom(computedStyle) {
-  return parseInt(computedStyle.marginBottom, 10)
+  return Math.max(parseInt(computedStyle.marginBottom, 10), 0)
 }
 function getMarginLeft(computedStyle) {
-  return parseInt(computedStyle.marginLeft, 10)
+  return Math.max(parseInt(computedStyle.marginLeft, 10), 0)
 }
