@@ -23,8 +23,4 @@ function onMousemove(event) {
 
 // appendStyleNode()
 window.removeEventListener('mouseover', onMousemove)
-window.removeEventListener('scroll', onMousemove)
-window.removeEventListener('wheel', onMousemove)
 window.addEventListener('mouseover', onMousemove)
-window.addEventListener('scroll', onMousemove)
-window.addEventListener('wheel', onMousemove)
