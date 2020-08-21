@@ -27,6 +27,9 @@ export default {
 
     chrome.storage.sync.get(['mode'], ({ mode }) => {
       if (mode) this.mode = mode
+
+        // store default mode
+      chrome.storage.sync.set({ mode: this.mode })
     })
   },
 

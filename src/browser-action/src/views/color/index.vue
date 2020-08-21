@@ -53,6 +53,12 @@ export default {
         if (paddingColor) this.paddingColor = paddingColor
         if (borderColor) this.borderColor = borderColor
         if (marginColor) this.marginColor = marginColor
+
+        // store default colors
+        chrome.storage.sync.set({ coverColor: this.coverColor })
+        chrome.storage.sync.set({ paddingColor: this.paddingColor })
+        chrome.storage.sync.set({ borderColor: this.borderColor })
+        chrome.storage.sync.set({ marginColor: this.marginColor })
       },
     )
   },
