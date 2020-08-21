@@ -1,3 +1,5 @@
+// all use the content box to compute top, width, etc.
+
 let coverColor = 'blue'
 let paddingColor = 'green'
 let borderColor = 'yellow'
@@ -55,74 +57,84 @@ export function removeCoverElement() {
 
 function setCoverStyle(element, computedStyle, boundingClicentRect) {
   element.style.backgroundColor = coverColor
-  element.style.left = boundingClicentRect.left + 'px'
-  element.style.top = boundingClicentRect.top + 'px'
+  element.style.top = getContentTop(computedStyle, boundingClicentRect) + 'px'
+  element.style.left = getContentLeft(computedStyle, boundingClicentRect) + 'px'
   element.style.height = getContentHeight(computedStyle, boundingClicentRect) + 'px'
   element.style.width = getContentWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderRightWidth = getBorderRightWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderBottomWidth = getBorderBottomWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderLeftWidth = getBorderLeftWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderTopWidth = getBorderTopWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.paddingRight = getPaddingRight(computedStyle, boundingClicentRect) + 'px'
-  element.style.paddingBottom = getPaddingBottom(computedStyle, boundingClicentRect) + 'px'
-  element.style.paddingLeft = getPaddingLeft(computedStyle, boundingClicentRect) + 'px'
-  element.style.paddingTop = getPaddingTop(computedStyle, boundingClicentRect) + 'px'
 }
 
 function setPaddingStyle(element, computedStyle, boundingClicentRect) {
-  element.style.borderColor = paddingColor
-  element.style.left = boundingClicentRect.left + 'px'
-  element.style.top = boundingClicentRect.top + 'px'
+  element.style.top = getContentTop(computedStyle, boundingClicentRect) - getPaddingTop(computedStyle) + 'px'
+  element.style.left = getContentLeft(computedStyle, boundingClicentRect) - getPaddingLeft(computedStyle) + 'px'
   element.style.height = getContentHeight(computedStyle, boundingClicentRect) + 'px'
   element.style.width = getContentWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderRightWidth = getPaddingRight(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderBottomWidth = getPaddingBottom(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderLeftWidth = getPaddingLeft(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderTopWidth = getPaddingTop(computedStyle, boundingClicentRect) + 'px'
+  element.style.borderColor = paddingColor
+  element.style.borderTopWidth = getPaddingTop(computedStyle) + 'px'
+  element.style.borderRightWidth = getPaddingRight(computedStyle) + 'px'
+  element.style.borderBottomWidth = getPaddingBottom(computedStyle) + 'px'
+  element.style.borderLeftWidth = getPaddingLeft(computedStyle) + 'px'
 }
 
 function setBorderStyle(element, computedStyle, boundingClicentRect) {
-  element.style.borderColor = borderColor
-  element.style.left = boundingClicentRect.left + 'px'
-  element.style.top = boundingClicentRect.top + 'px'
+  element.style.top =
+    getContentTop(computedStyle, boundingClicentRect) -
+    getPaddingTop(computedStyle) -
+    getBorderTopWidth(computedStyle) +
+    'px'
+  element.style.left =
+    getContentLeft(computedStyle, boundingClicentRect) -
+    getPaddingLeft(computedStyle) -
+    getBorderLeftWidth(computedStyle) +
+    'px'
   element.style.height =
     getContentHeight(computedStyle, boundingClicentRect) +
-    getPaddingBottom(computedStyle, boundingClicentRect) +
-    getPaddingTop(computedStyle, boundingClicentRect) +
+    getPaddingTop(computedStyle) +
+    getPaddingBottom(computedStyle) +
     'px'
   element.style.width =
     getContentWidth(computedStyle, boundingClicentRect) +
-    getPaddingRight(computedStyle, boundingClicentRect) +
-    getPaddingLeft(computedStyle, boundingClicentRect) +
+    getPaddingRight(computedStyle) +
+    getPaddingLeft(computedStyle) +
     'px'
-  element.style.borderRightWidth = getBorderRightWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderBottomWidth = getBorderBottomWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderLeftWidth = getBorderLeftWidth(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderTopWidth = getBorderTopWidth(computedStyle, boundingClicentRect) + 'px'
+  element.style.borderColor = borderColor
+  element.style.borderTopWidth = getBorderTopWidth(computedStyle) + 'px'
+  element.style.borderRightWidth = getBorderRightWidth(computedStyle) + 'px'
+  element.style.borderBottomWidth = getBorderBottomWidth(computedStyle) + 'px'
+  element.style.borderLeftWidth = getBorderLeftWidth(computedStyle) + 'px'
 }
 
 function setMarginStyle(element, computedStyle, boundingClicentRect) {
-  element.style.borderColor = marginColor
-  element.style.left = boundingClicentRect.left - getMarginLeft(computedStyle, boundingClicentRect) + 'px'
-  element.style.top = boundingClicentRect.top - getMarginTop(computedStyle, boundingClicentRect) + 'px'
+  element.style.top =
+    getContentTop(computedStyle, boundingClicentRect) -
+    getPaddingTop(computedStyle) -
+    getBorderTopWidth(computedStyle) -
+    getMarginTop(computedStyle) +
+    'px'
+  element.style.left =
+    getContentLeft(computedStyle, boundingClicentRect) -
+    getPaddingLeft(computedStyle) -
+    getBorderLeftWidth(computedStyle) -
+    getMarginLeft(computedStyle) +
+    'px'
   element.style.height =
     getContentHeight(computedStyle, boundingClicentRect) +
-    getPaddingBottom(computedStyle, boundingClicentRect) +
-    getPaddingTop(computedStyle, boundingClicentRect) +
-    getBorderBottomWidth(computedStyle, boundingClicentRect) +
-    getBorderTopWidth(computedStyle, boundingClicentRect) +
+    getPaddingTop(computedStyle) +
+    getPaddingBottom(computedStyle) +
+    getBorderTopWidth(computedStyle) +
+    getBorderBottomWidth(computedStyle) +
     'px'
   element.style.width =
     getContentWidth(computedStyle, boundingClicentRect) +
-    getPaddingRight(computedStyle, boundingClicentRect) +
-    getPaddingLeft(computedStyle, boundingClicentRect) +
-    getBorderRightWidth(computedStyle, boundingClicentRect) +
-    getBorderLeftWidth(computedStyle, boundingClicentRect) +
+    getPaddingRight(computedStyle) +
+    getPaddingLeft(computedStyle) +
+    getBorderRightWidth(computedStyle) +
+    getBorderLeftWidth(computedStyle) +
     'px'
-  element.style.borderRightWidth = getMarginRight(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderBottomWidth = getMarginBottom(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderLeftWidth = getMarginLeft(computedStyle, boundingClicentRect) + 'px'
-  element.style.borderTopWidth = getMarginTop(computedStyle, boundingClicentRect) + 'px'
+  element.style.borderColor = marginColor
+  element.style.borderTopWidth = getMarginTop(computedStyle) + 'px'
+  element.style.borderRightWidth = getMarginRight(computedStyle) + 'px'
+  element.style.borderBottomWidth = getMarginBottom(computedStyle) + 'px'
+  element.style.borderLeftWidth = getMarginLeft(computedStyle) + 'px'
 }
 
 function createElement() {
@@ -143,75 +155,65 @@ function setCommonStyle(element) {
   element.style.boxSizing = 'content-box'
 }
 
+function getContentTop(computedStyle, boundingClicentRect) {
+  return boundingClicentRect.top + getPaddingTop(computedStyle) + getBorderTopWidth(computedStyle)
+}
+
+function getContentRight(computedStyle, boundingClicentRect) {
+  return boundingClicentRect.right - getPaddingRight(computedStyle) - getBorderRightWidth(computedStyle)
+}
+
+function getContentBottom(computedStyle, boundingClicentRect) {
+  return boundingClicentRect.bottom - getPaddingBottom(computedStyle) - getBorderBottomWidth(computedStyle)
+}
+
+function getContentLeft(computedStyle, boundingClicentRect) {
+  return boundingClicentRect.left + getPaddingLeft(computedStyle) + getBorderLeftWidth(computedStyle)
+}
+
 function getContentWidth(computedStyle, boundingClicentRect) {
-  if (computedStyle.boxSizing === 'border-box') {
-    // width/height + padding + border-width if box-sizing: content-box has been set on it
-    return (
-      boundingClicentRect.right -
-      boundingClicentRect.left -
-      parseInt(computedStyle.paddingLeft, 10) -
-      parseInt(computedStyle.paddingRight, 10) -
-      parseInt(computedStyle.borderLeftWidth, 10) -
-      parseInt(computedStyle.borderRightWidth, 10)
-    )
-  } else {
-    // width/height only if box-sizing: border-box has been set on it
-    return boundingClicentRect.right - boundingClicentRect.left
-  }
+  return getContentRight(computedStyle, boundingClicentRect) - getContentLeft(computedStyle, boundingClicentRect)
 }
 
 function getContentHeight(computedStyle, boundingClicentRect) {
-  if (computedStyle.boxSizing === 'border-box') {
-    // width/height + padding + border-width if box-sizing: content-box has been set on it
-    return (
-      boundingClicentRect.bottom -
-      boundingClicentRect.top -
-      parseInt(computedStyle.paddingTop, 10) -
-      parseInt(computedStyle.paddingBottom, 10) -
-      parseInt(computedStyle.borderTopWidth, 10) -
-      parseInt(computedStyle.borderBottomWidth, 10)
-    )
-  } else {
-    // width/height only if box-sizing: border-box has been set on it
-    return boundingClicentRect.bottom - boundingClicentRect.top
-  }
+  return getContentBottom(computedStyle, boundingClicentRect) - getContentTop(computedStyle, boundingClicentRect)
 }
 
-function getPaddingRight(computedStyle, boundingClicentRect) {
-  return parseInt(computedStyle.paddingRight, 10)
-}
-function getPaddingBottom(computedStyle, boundingClicentRect) {
-  return parseInt(computedStyle.paddingBottom, 10)
-}
-function getPaddingLeft(computedStyle, boundingClicentRect) {
-  return parseInt(computedStyle.paddingLeft, 10)
-}
-function getPaddingTop(computedStyle, boundingClicentRect) {
+function getPaddingTop(computedStyle) {
   return parseInt(computedStyle.paddingTop, 10)
 }
+function getPaddingRight(computedStyle) {
+  return parseInt(computedStyle.paddingRight, 10)
+}
+function getPaddingBottom(computedStyle) {
+  return parseInt(computedStyle.paddingBottom, 10)
+}
+function getPaddingLeft(computedStyle) {
+  return parseInt(computedStyle.paddingLeft, 10)
+}
 
-function getBorderRightWidth(computedStyle, boundingClicentRect) {
-  return parseInt(computedStyle.borderRightWidth, 10)
-}
-function getBorderBottomWidth(computedStyle, boundingClicentRect) {
-  return parseInt(computedStyle.borderBottomWidth, 10)
-}
-function getBorderLeftWidth(computedStyle, boundingClicentRect) {
-  return parseInt(computedStyle.borderLeftWidth, 10)
-}
-function getBorderTopWidth(computedStyle, boundingClicentRect) {
+function getBorderTopWidth(computedStyle) {
   return parseInt(computedStyle.borderTopWidth, 10)
 }
+function getBorderRightWidth(computedStyle) {
+  return parseInt(computedStyle.borderRightWidth, 10)
+}
+function getBorderBottomWidth(computedStyle) {
+  return parseInt(computedStyle.borderBottomWidth, 10)
+}
+function getBorderLeftWidth(computedStyle) {
+  return parseInt(computedStyle.borderLeftWidth, 10)
+}
 
-function getMarginRight(computedStyle, boundingClicentRect) {
+function getMarginTop(computedStyle) {
+  return parseInt(computedStyle.marginTop, 10)
+}
+function getMarginRight(computedStyle) {
   return parseInt(computedStyle.marginRight, 10)
 }
-function getMarginBottom(computedStyle, boundingClicentRect) {
+function getMarginBottom(computedStyle) {
   return parseInt(computedStyle.marginBottom, 10)
 }
-function getMarginLeft(computedStyle, boundingClicentRect) {
+function getMarginLeft(computedStyle) {
   return parseInt(computedStyle.marginLeft, 10)
-}
-function getMarginTop(computedStyle, boundingClicentRect) {
-  return parseInt(computedStyle.marginTop, 10)
 }
