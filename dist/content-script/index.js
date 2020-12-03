@@ -223,9 +223,38 @@
     element.style.borderLeftWidth = getMarginLeft(computedStyle) + 'px';
   };
 
+  const setCoverTop = (element, boundingClicentRect) => {
+    element.style.top = boundingClicentRect.top + 'px';
+    element.style.left = '0';
+    element.style.borderColor = configs.coverColor;
+    element.style.width = '100vw';
+  };
+
+  const setCoverRight = (element, boundingClicentRect) => {
+    element.style.top = '0';
+    element.style.left = boundingClicentRect.right + 'px';
+    element.style.borderColor = configs.coverColor;
+    element.style.height = '100vh';
+  };
+
+  const setCoverBottom = (element, boundingClicentRect) => {
+    element.style.top = boundingClicentRect.bottom + 'px';
+    element.style.left = '0';
+    element.style.borderColor = configs.coverColor;
+    element.style.width = '100vw';
+  };
+
+  const setCoverLeft = (element, boundingClicentRect) => {
+    element.style.top = '0';
+    element.style.left = boundingClicentRect.left + 'px';
+    element.style.borderColor = configs.coverColor;
+    element.style.height = '100vh';
+  };
+
   const createElement = id => {
     const element = document.createElement('DIV');
-    setCommonStyle(element, id);
+    if (id.includes('line'))setElementLineStyle(element, id);
+    else setCommonStyle(element, id);
     return element
   };
 
@@ -240,6 +269,15 @@
     element.style.borderWidth = '0px';
     element.style.borderColor = 'transparent';
     element.style.boxSizing = 'content-box';
+  };
+
+  const setElementLineStyle = (element, id) => {
+    element.dataset['inspectElement'] = 'inspectElement';
+    element.id = `inspect-element-${id}`;
+    element.style.position = 'fixed';
+    element.style.borderRight = '1px dashed';
+    element.style.borderBottom = '1px dashed';
+    element.style.zIndex = 9000;
   };
 
   const getContentTop = (computedStyle, boundingClicentRect) => {
@@ -312,11 +350,23 @@
     margin: createElement('margin'),
   };
 
+  const GridLineElements = {
+    coverTop: createElement('cover-top-line'),
+    coverRight: createElement('cover-right-line'),
+    coverBottom: createElement('cover-bottom-line'),
+    coverLeft: createElement('cover-left-line'),
+  };
+
+  const allElement = {
+    ...coverElements,
+    ...GridLineElements
+  };
+
   // Append cover element to body
   const appendCoverElement = target => {
     // throw Error('Not yet implemented.')
 
-    for (const element of Object.values(coverElements))
+    for (const element of Object.values(allElement))
       if (document.body.contains(element) === false) document.body.appendChild(element);
 
     const computedStyle = window.getComputedStyle(target);
@@ -326,10 +376,16 @@
     setPaddingStyle(coverElements.padding, computedStyle, boundingClicentRect);
     setBorderStyle(coverElements.border, computedStyle, boundingClicentRect);
     setMarginStyle(coverElements.margin, computedStyle, boundingClicentRect);
+
+    
+    setCoverTop(GridLineElements.coverTop, boundingClicentRect);
+    setCoverRight(GridLineElements.coverRight, boundingClicentRect);
+    setCoverBottom(GridLineElements.coverBottom, boundingClicentRect);
+    setCoverLeft(GridLineElements.coverLeft, boundingClicentRect);
   };
 
   const removeCoverElement = () => {
-    for (const element of Object.values(coverElements)) {
+    for (const element of Object.values(allElement)) {
       try {
         document.body.removeChild(element);
       } catch (error) {
