@@ -1,5 +1,5 @@
 import { findHoveredElement } from './find-element'
-import { appendCoverElement, removeCoverElement } from './cover-element'
+import { appendElements, removeElements } from './append-element'
 import configs from '../configs'
 import { MODIFIER_KEYS } from '../util'
 
@@ -12,7 +12,7 @@ const isKeyCombinationActive = event => {
 }
 const onMousemove = event => {
   if (!event || !event.target || event.target === document || isKeyCombinationActive(event) === false) {
-    removeCoverElement()
+    removeElements()
     return
   }
 
@@ -20,13 +20,13 @@ const onMousemove = event => {
 
   if (event && event.target && event.target.dataset && event.target.dataset.inspectElement) {
     // remove covered element first if move mouse over it
-    removeCoverElement()
+    removeElements()
 
     requestAnimationFrame(() => {
-      appendCoverElement(target)
+      appendElements(target)
     })
   } else {
-    appendCoverElement(target)
+    appendElements(target)
   }
 }
 
@@ -34,5 +34,5 @@ const onMousemove = event => {
 window.removeEventListener('mousemove', onMousemove)
 window.addEventListener('mousemove', onMousemove)
 
-window.removeEventListener('keyup', removeCoverElement)
-window.addEventListener('keyup', removeCoverElement)
+window.removeEventListener('keyup', removeElements)
+window.addEventListener('keyup', removeElements)

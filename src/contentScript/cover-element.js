@@ -173,15 +173,9 @@ const coverElements = {
   margin: createElement('margin'),
 }
 
-// Append cover element to body
-export const appendCoverElement = target => {
-  // throw Error('Not yet implemented.')
-
+export const appendCoverElements = (computedStyle, boundingClicentRect) => {
   for (const element of Object.values(coverElements))
     if (document.body.contains(element) === false) document.body.appendChild(element)
-
-  const computedStyle = window.getComputedStyle(target)
-  const boundingClicentRect = target.getBoundingClientRect()
 
   setCoverStyle(coverElements.cover, computedStyle, boundingClicentRect)
   setPaddingStyle(coverElements.padding, computedStyle, boundingClicentRect)
@@ -189,7 +183,7 @@ export const appendCoverElement = target => {
   setMarginStyle(coverElements.margin, computedStyle, boundingClicentRect)
 }
 
-export const removeCoverElement = () => {
+export const removeCoverElements = () => {
   for (const element of Object.values(coverElements)) {
     try {
       document.body.removeChild(element)
