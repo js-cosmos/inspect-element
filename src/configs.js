@@ -5,6 +5,14 @@ const configs = {
   marginColor: '#FC923580',
   mode: 'margin',
   modifierKeyCombination: ['metaKey'],
+  isCoverSidelineEnabled: true,
+  isPaddingSidelineEnabled: true,
+  isBorderSidelineEnabled: true,
+  isMarginSidelineEnabled: true,
+  coverSidelineColor: '#62C0CCB3',
+  paddingSidelineColor: '#62D56EB3',
+  borderSidelineColor: '#DDE648B3',
+  marginSidelineColor: '#FC9235B3',
 }
 const configKeys = Object.keys(configs)
 
