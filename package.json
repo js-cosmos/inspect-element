@@ -16,9 +16,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "install-all": "yarn install && cd src/browser-action && yarn install",
-    "build-all": "node scripts/build.js",
-    "build": "rollup -c",
+    "install": "cd src/browser-action && yarn install",
+    "build": "node scripts/build.js",
     "test": "jest tests/*",
     "serve": "yarn build --watch",
     "lint": "prettier . --check"

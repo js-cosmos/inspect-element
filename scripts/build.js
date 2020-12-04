@@ -26,7 +26,7 @@ function build() {
   childProcess.execSync('rm -f dist.zip')
 
   // static files, contentScript
-  childProcess.execSync('yarn build', handleChildProcess)
+  childProcess.execSync('rollup -c', handleChildProcess)
 
   // browserAction
   process.chdir('src/browser-action')
