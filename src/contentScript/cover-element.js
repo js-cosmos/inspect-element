@@ -1,4 +1,22 @@
 import configs from '../configs'
+import {
+  getContentTop,
+  getContentLeft,
+  getContentWidth,
+  getContentHeight,
+  getPaddingTop,
+  getPaddingRight,
+  getPaddingBottom,
+  getPaddingLeft,
+  getBorderTopWidth,
+  getBorderRightWidth,
+  getBorderBottomWidth,
+  getBorderLeftWidth,
+  getMarginTop,
+  getMarginRight,
+  getMarginBottom,
+  getMarginLeft,
+} from '../util'
 
 // all use the content box to compute top, width, etc.
 
@@ -101,69 +119,6 @@ const setCommonStyle = (element, id) => {
   element.style.borderWidth = '0px'
   element.style.borderColor = 'transparent'
   element.style.boxSizing = 'content-box'
-}
-
-const getContentTop = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.top + getPaddingTop(computedStyle) + getBorderTopWidth(computedStyle)
-}
-
-const getContentRight = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.right - getPaddingRight(computedStyle) - getBorderRightWidth(computedStyle)
-}
-
-const getContentBottom = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.bottom - getPaddingBottom(computedStyle) - getBorderBottomWidth(computedStyle)
-}
-
-const getContentLeft = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.left + getPaddingLeft(computedStyle) + getBorderLeftWidth(computedStyle)
-}
-
-const getContentWidth = (computedStyle, boundingClicentRect) => {
-  return getContentRight(computedStyle, boundingClicentRect) - getContentLeft(computedStyle, boundingClicentRect)
-}
-
-const getContentHeight = (computedStyle, boundingClicentRect) => {
-  return getContentBottom(computedStyle, boundingClicentRect) - getContentTop(computedStyle, boundingClicentRect)
-}
-
-const getPaddingTop = computedStyle => {
-  return Math.max(parseInt(computedStyle.paddingTop, 10), 0)
-}
-const getPaddingRight = computedStyle => {
-  return Math.max(parseInt(computedStyle.paddingRight, 10), 0)
-}
-const getPaddingBottom = computedStyle => {
-  return Math.max(parseInt(computedStyle.paddingBottom, 10), 0)
-}
-const getPaddingLeft = computedStyle => {
-  return Math.max(parseInt(computedStyle.paddingLeft, 10), 0)
-}
-
-const getBorderTopWidth = computedStyle => {
-  return Math.max(parseInt(computedStyle.borderTopWidth, 10), 0)
-}
-const getBorderRightWidth = computedStyle => {
-  return Math.max(parseInt(computedStyle.borderRightWidth, 10), 0)
-}
-const getBorderBottomWidth = computedStyle => {
-  return Math.max(parseInt(computedStyle.borderBottomWidth, 10), 0)
-}
-const getBorderLeftWidth = computedStyle => {
-  return Math.max(parseInt(computedStyle.borderLeftWidth, 10), 0)
-}
-
-const getMarginTop = computedStyle => {
-  return Math.max(parseInt(computedStyle.marginTop, 10), 0)
-}
-const getMarginRight = computedStyle => {
-  return Math.max(parseInt(computedStyle.marginRight, 10), 0)
-}
-const getMarginBottom = computedStyle => {
-  return Math.max(parseInt(computedStyle.marginBottom, 10), 0)
-}
-const getMarginLeft = computedStyle => {
-  return Math.max(parseInt(computedStyle.marginLeft, 10), 0)
 }
 
 const coverElements = {
