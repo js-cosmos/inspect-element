@@ -30,9 +30,7 @@ jobs:
         run: yarn lint
 
       - name: Test
-        uses: mujo-code/puppeteer-headful@master
-        env:
-          CI: 'true'
+        uses: djp3/puppeteer-headful@master
         with:
           args: yarn test
 

@@ -9,11 +9,6 @@ export function launch(): Promise<Browser> {
   return puppeteerLaunch({
     executablePath: process.env.PUPPETEER_EXEC_PATH,
     headless: false,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      `--disable-extensions-except=${pathToExtension}`,
-      `--load-extension=${pathToExtension}`,
-    ],
+    args: ['--no-sandbox', `--disable-extensions-except=${pathToExtension}`, `--load-extension=${pathToExtension}`],
   })
 }
