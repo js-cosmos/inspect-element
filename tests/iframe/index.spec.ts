@@ -5,7 +5,7 @@ it('should inspect', async () => {
   const browser: Browser = await launch()
   const page: Page = await browser.newPage()
 
-  await page.goto('https://iendeavor.github.io/inspect-element/tests/iframe/index.html')
+  await page.goto('https://js-cosmos.github.io/inspect-element/tests/iframe/index.html')
   await page.keyboard.down('Meta')
   await page.mouse.move(20, 20)
 
