@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Lint
+        run: yarn lint
+
       - name: Test
         uses: mujo-code/puppeteer-headful@master
         env:

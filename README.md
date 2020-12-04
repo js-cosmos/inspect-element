@@ -4,6 +4,7 @@
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=iendeavor.inspect-element)
 
 ## Demo
+
 ![](https://user-images.githubusercontent.com/22850435/90898582-5d4e5d00-e3f9-11ea-9090-d8ed2a0077cb.gif)
 
 ## Usage
