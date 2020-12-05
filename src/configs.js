@@ -23,7 +23,7 @@ const listeners = configKeys.reduce((listeners, key) => {
 
 chrome.storage.sync.get(configKeys, values => {
   for (const key of configKeys) {
-    if (values[key]) {
+    if (values[key] !== undefined) {
       configs[key] = values[key]
       listeners[key].forEach(fn => fn(configs[key]))
     } else chrome.storage.sync.set({ [key]: configs[key] })
