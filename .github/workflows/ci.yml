@@ -1,6 +1,31 @@
 name: E2E
 on: push
 jobs:
+  lint:
+    name: E2E
+
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        node: ['12']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@master
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
   linux:
     name: E2E
 
@@ -28,9 +53,6 @@ jobs:
 
       - name: Build
         run: yarn build
-
-      - name: Lint
-        run: yarn lint
 
       - name: Test
         uses: djp3/puppeteer-headful@master
