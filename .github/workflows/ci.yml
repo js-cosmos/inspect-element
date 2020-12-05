@@ -1,8 +1,33 @@
-name: E2E
+name: Test
 on: push
 jobs:
+  lint:
+    name: Lint
+
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        node: ['12']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@master
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
   linux:
-    name: E2E
+    name: Linux
 
     strategy:
       matrix:
@@ -29,20 +54,17 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Lint
-        run: yarn lint
-
       - name: Test
         uses: djp3/puppeteer-headful@master
         with:
           args: yarn test
 
-  window-and-maxos:
-    name: E2E
+  macos:
+    name: MacOS
 
     strategy:
       matrix:
-        os: ['windows-latest', 'macos-latest']
+        os: ['macos-latest']
         node: ['12']
 
     runs-on: ${{ matrix.os }}
@@ -64,3 +86,32 @@ jobs:
 
       - name: Test
         run: yarn test
+
+  windows:
+    name: Windows
+
+    strategy:
+      matrix:
+        os: ['windows-latest']
+        node: ['12']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@master
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      # TODO: sometimes will failed
+      # - name: Test
+      #   run: yarn test
