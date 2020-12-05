@@ -63,8 +63,9 @@ export default {
 </script>
 
 <style scoped>
-.v-label, .v-tooltip {
+.v-label,
+.v-tooltip {
   margin-left: 8px !important;
-  top: -.5px;
+  top: -0.5px;
 }
 </style>
