@@ -26,14 +26,13 @@ function build() {
   childProcess.execSync('rm -f dist.zip')
 
   // static files, contentScript
-  childProcess.execSync('rollup -c', handleChildProcess)
+  childProcess.execSync('rollup -c', { stdio: 'inherit' })
 
   // browserAction
   process.chdir('src/browser-action')
-  childProcess.execSync(
-    process.argv.includes('--watch') ? 'yarn build --mode development' : 'yarn build',
-    handleChildProcess,
-  )
+  childProcess.execSync(process.argv.includes('--watch') ? 'yarn build --mode development' : 'yarn build', {
+    stdio: 'inherit',
+  })
 
   process.chdir(cwd)
   childProcess.execSync('zip -r dist dist/*')
