@@ -22,10 +22,16 @@
     "serve": "yarn build --watch",
     "lint": "prettier . --check"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "git diff --exit-code && git diff --staged --exit-code && yarn lint && yarn build && yarn test"
+    }
+  },
   "devDependencies": {
     "@types/chrome": "^0.0.126",
     "@types/jest": "^26.0.16",
     "@types/puppeteer": "^5.4.0",
+    "husky": "^4.3.0",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "puppeteer": "^5.5.0",
