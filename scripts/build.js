@@ -1,5 +1,7 @@
 const fs = require('fs')
 const childProcess = require('child_process')
+const rimraf = require('rimraf').sync
+const zip = require('cross-zip')
 const cwd = process.cwd()
 
 let timeout = null
@@ -22,8 +24,8 @@ function debounceBuild() {
 function build() {
   console.clear()
 
-  childProcess.execSync('rm -rf dist')
-  childProcess.execSync('rm -f dist.zip')
+  rimraf('dist')
+  rimraf('dist.zip')
 
   // static files, contentScript
   childProcess.execSync('rollup -c', { stdio: 'inherit' })
@@ -35,17 +37,8 @@ function build() {
   })
 
   process.chdir(cwd)
-  childProcess.execSync('zip -r dist dist/*')
+  zip.zipSync('dist', 'dist.zip')
 
   console.log('')
   console.log('Waiting for changes...')
-}
-
-function handleChildProcess(error, stdout, stderr) {
-  if (error) {
-    console.error(error)
-    process.exit(1)
-  }
-  console.log(`stdout: ${stdout}`)
-  console.error(`stderr: ${stderr}`)
 }
