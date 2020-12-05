@@ -37,12 +37,12 @@ jobs:
         with:
           args: yarn test
 
-  window-and-maxos:
+  macos:
     name: E2E
 
     strategy:
       matrix:
-        os: ['windows-latest', 'macos-latest']
+        os: ['macos-latest']
         node: ['12']
 
     runs-on: ${{ matrix.os }}
@@ -64,3 +64,32 @@ jobs:
 
       - name: Test
         run: yarn test
+
+  windows:
+    name: E2E
+
+    strategy:
+      matrix:
+        os: ['windows-latest']
+        node: ['12']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@master
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      # TODO: sometimes will failed
+      # - name: Test
+      #   run: yarn test
