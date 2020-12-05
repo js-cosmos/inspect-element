@@ -1,7 +1,7 @@
 import configs from '../configs'
 import {
-  getContentTop,
-  getContentLeft,
+  getContentTopPosition,
+  getContentLeftPosition,
   getContentWidth,
   getContentHeight,
   getPaddingTop,
@@ -22,15 +22,15 @@ import {
 
 const setCoverStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.backgroundColor = configs.coverColor
-  element.style.top = getContentTop(computedStyle, boundingClicentRect) + 'px'
-  element.style.left = getContentLeft(computedStyle, boundingClicentRect) + 'px'
+  element.style.top = getContentTopPosition(computedStyle, boundingClicentRect) + 'px'
+  element.style.left = getContentLeftPosition(computedStyle, boundingClicentRect) + 'px'
   element.style.height = getContentHeight(computedStyle, boundingClicentRect) + 'px'
   element.style.width = getContentWidth(computedStyle, boundingClicentRect) + 'px'
 }
 
 const setPaddingStyle = (element, computedStyle, boundingClicentRect) => {
-  element.style.top = getContentTop(computedStyle, boundingClicentRect) - getPaddingTop(computedStyle) + 'px'
-  element.style.left = getContentLeft(computedStyle, boundingClicentRect) - getPaddingLeft(computedStyle) + 'px'
+  element.style.top = getContentTopPosition(computedStyle, boundingClicentRect) - getPaddingTop(computedStyle) + 'px'
+  element.style.left = getContentLeftPosition(computedStyle, boundingClicentRect) - getPaddingLeft(computedStyle) + 'px'
   element.style.height = getContentHeight(computedStyle, boundingClicentRect) + 'px'
   element.style.width = getContentWidth(computedStyle, boundingClicentRect) + 'px'
   element.style.borderColor = configs.paddingColor
@@ -42,12 +42,12 @@ const setPaddingStyle = (element, computedStyle, boundingClicentRect) => {
 
 const setBorderStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.top =
-    getContentTop(computedStyle, boundingClicentRect) -
+    getContentTopPosition(computedStyle, boundingClicentRect) -
     getPaddingTop(computedStyle) -
     getBorderTopWidth(computedStyle) +
     'px'
   element.style.left =
-    getContentLeft(computedStyle, boundingClicentRect) -
+    getContentLeftPosition(computedStyle, boundingClicentRect) -
     getPaddingLeft(computedStyle) -
     getBorderLeftWidth(computedStyle) +
     'px'
@@ -70,13 +70,13 @@ const setBorderStyle = (element, computedStyle, boundingClicentRect) => {
 
 const setMarginStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.top =
-    getContentTop(computedStyle, boundingClicentRect) -
+    getContentTopPosition(computedStyle, boundingClicentRect) -
     getPaddingTop(computedStyle) -
     getBorderTopWidth(computedStyle) -
     getMarginTop(computedStyle) +
     'px'
   element.style.left =
-    getContentLeft(computedStyle, boundingClicentRect) -
+    getContentLeftPosition(computedStyle, boundingClicentRect) -
     getPaddingLeft(computedStyle) -
     getBorderLeftWidth(computedStyle) -
     getMarginLeft(computedStyle) +

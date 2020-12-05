@@ -1,9 +1,9 @@
 import configs, { onChange } from '../configs'
 import {
-  getPaddingTop,
-  getPaddingRight,
-  getPaddingBottom,
-  getPaddingLeft,
+  getContentTopPosition,
+  getContentRightPosition,
+  getContentBottomPosition,
+  getContentLeftPosition,
   getBorderTopWidth,
   getBorderRightWidth,
   getBorderBottomWidth,
@@ -181,19 +181,19 @@ const setMarginSidelineLeftStyle = (element, computedStyle, boundingClicentRect)
 
 // computed
 const getCoverSidelineTop = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.top + getPaddingTop(computedStyle)
+  return getContentTopPosition(computedStyle, boundingClicentRect)
 }
 
 const getCoverSidelineRight = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.right - getPaddingRight(computedStyle)
+  return getContentRightPosition(computedStyle, boundingClicentRect)
 }
 
 const getCoverSidelineBottom = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.bottom - getPaddingBottom(computedStyle)
+  return getContentBottomPosition(computedStyle, boundingClicentRect)
 }
 
 const getCoverSidelineLeft = (computedStyle, boundingClicentRect) => {
-  return boundingClicentRect.left + getPaddingLeft(computedStyle)
+  return getContentLeftPosition(computedStyle, boundingClicentRect)
 }
 
 const getPaddingSidelineTop = (computedStyle, boundingClicentRect) => {
@@ -241,6 +241,7 @@ const setSidelineStyle = (element, id) => {
   element.style.borderWidth = '0'
   element.style.borderStyle = 'dashed'
   element.style.zIndex = 9998
+  element.style.pointerEvents = 'none'
 }
 
 const sidelineElements = {

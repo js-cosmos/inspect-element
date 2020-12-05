@@ -5,28 +5,34 @@ export function createStyleNode(style) {
 
 export const MODIFIER_KEYS = ['altKey', 'ctrlKey', 'metaKey', 'shiftKey']
 
-export const getContentTop = (computedStyle, boundingClicentRect) => {
+export const getContentTopPosition = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.top + getPaddingTop(computedStyle) + getBorderTopWidth(computedStyle)
 }
 
-export const getContentRight = (computedStyle, boundingClicentRect) => {
+export const getContentRightPosition = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.right - getPaddingRight(computedStyle) - getBorderRightWidth(computedStyle)
 }
 
-export const getContentBottom = (computedStyle, boundingClicentRect) => {
+export const getContentBottomPosition = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.bottom - getPaddingBottom(computedStyle) - getBorderBottomWidth(computedStyle)
 }
 
-export const getContentLeft = (computedStyle, boundingClicentRect) => {
+export const getContentLeftPosition = (computedStyle, boundingClicentRect) => {
   return boundingClicentRect.left + getPaddingLeft(computedStyle) + getBorderLeftWidth(computedStyle)
 }
 
 export const getContentWidth = (computedStyle, boundingClicentRect) => {
-  return getContentRight(computedStyle, boundingClicentRect) - getContentLeft(computedStyle, boundingClicentRect)
+  return (
+    getContentRightPosition(computedStyle, boundingClicentRect) -
+    getContentLeftPosition(computedStyle, boundingClicentRect)
+  )
 }
 
 export const getContentHeight = (computedStyle, boundingClicentRect) => {
-  return getContentBottom(computedStyle, boundingClicentRect) - getContentTop(computedStyle, boundingClicentRect)
+  return (
+    getContentBottomPosition(computedStyle, boundingClicentRect) -
+    getContentTopPosition(computedStyle, boundingClicentRect)
+  )
 }
 
 export const getPaddingTop = computedStyle => {
