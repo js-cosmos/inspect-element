@@ -3,12 +3,14 @@
     modifier-key-combination
     mode
     color
+    sideline
 </template>
 
 <script>
 import modifierKeyCombination from './views/modifier-key-combination'
 import Color from './views/color'
 import Mode from './views/mode'
+import Sideline from './views/sideline'
 
 export default {
   name: 'App',
@@ -17,6 +19,7 @@ export default {
     modifierKeyCombination,
     Color,
     Mode,
+    Sideline,
   },
 }
 </script>

@@ -1,7 +1,8 @@
 <template lang="pug">
   v-menu( offset-y :close-on-content-click="false" )
+    v-color-picker( :value="color" mode="hexa" @update:color="changeColor" )
     template( v-slot:activator="{ on, attrs }" )
-      v-btn.mx-2(
+      v-btn(
         :id="id"
         v-bind="attrs"
         v-on="on"
@@ -9,8 +10,6 @@
         icon
         )
         v-icon( :color="color" ) mdi-format-color-fill
-      v-label( :for="id" ) {{ label }}
-    v-color-picker( :value="color" mode="hexa" @update:color="changeColor" )
 </template>
 
 <script>
@@ -40,5 +39,9 @@ export default {
 <style>
 .v-color-picker {
   margin: 0 !important;
+}
+
+.theme--light.v-btn {
+  top: 1px;
 }
 </style>

@@ -1,22 +1,26 @@
 <template lang="pug">
-  v-list
+  v-list.ml-2
     v-subheader.my-1.py-1 Colors
     v-list-item.py-1
-      color-picker( label="Cover" v-model="coverColor" )
+      color-picker( v-model="coverColor" )
+      v-label Cover
       v-tooltip( bottom open-on-click open-on-hover )
         template( v-slot:activator="{ on, attrs }" )
           v-icon.ml-1( small v-bind="attrs" v-on="on" ) mdi-help-circle
         span color of the content without padding and border
     v-list-item.py-1
-      color-picker( label="Padding" v-model="paddingColor" )
+      color-picker( v-model="paddingColor" )
+      v-label Padding
     v-list-item.py-1
-      color-picker( label="Border" v-model="borderColor" )
+      color-picker( v-model="borderColor" )
+      v-label Border
     v-list-item.py-1
-      color-picker( label="Margin" v-model="marginColor" )
+      color-picker( v-model="marginColor" )
+      v-label Margin
 </template>
 
 <script>
-import ColorPicker from './color-picker'
+import ColorPicker from '../../components/color-picker'
 import configs, { onChange } from '../../../../configs'
 
 export default {
@@ -57,3 +61,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.v-label,
+.v-tooltip {
+  margin-left: 8px !important;
+  top: -0.5px;
+}
+</style>
