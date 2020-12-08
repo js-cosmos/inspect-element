@@ -5,6 +5,7 @@
     color
     sideline
     christmas
+    style-info
 </template>
 
 <script>
@@ -13,6 +14,7 @@ import Color from './views/color'
 import Mode from './views/mode'
 import Sideline from './views/sideline'
 import Christmas from './views/christmas'
+import StyleInfo from './views/style-info'
 
 export default {
   name: 'App',
@@ -23,6 +25,7 @@ export default {
     Mode,
     Sideline,
     Christmas,
+    StyleInfo,
   },
 }
 </script>
