@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-list.ml-1
+  v-list
     v-subheader Sideline
     v-list-item.my-2
       v-checkbox.ml-2.mt-0.pt-0( v-model="isCoverSidelineEnabled" )
