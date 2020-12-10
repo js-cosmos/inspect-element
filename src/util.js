@@ -73,3 +73,20 @@ export const getMarginBottom = computedStyle => {
 export const getMarginLeft = computedStyle => {
   return Math.max(parseInt(computedStyle.marginLeft, 10), 0)
 }
+
+export const rgbaToHex = rgba => {
+  if (!/^rgba?/.test(rgba)) return rgba
+  const match = rgba.match(/rgba?\((.*)\)/)
+  const rgbaArgs = match?.[1].split(',')
+  const hexString = rgbaArgs
+    .map((int, i, arr) => {
+      let hex = ''
+      const isRgba = arr.length === 4
+      const isLast = i === arr.length - 1
+      if (isRgba && isLast) hex = Math.round(int * 255).toString(16)
+      else hex = parseInt(int).toString(16)
+      return hex.length === 1 ? `0${hex}` : hex
+    })
+    .join('')
+  return `#${hexString}`
+}
