@@ -61,6 +61,22 @@ export const getBorderLeftWidth = computedStyle => {
   return Math.max(parseInt(computedStyle.borderLeftWidth, 10), 0)
 }
 
+export const getBoxModelWidth = (computedStyle, boundingClicentRect) => {
+  return (
+    parseInt(getContentWidth(computedStyle, boundingClicentRect)) +
+    getBorderLeftWidth(computedStyle) +
+    getBorderRightWidth(computedStyle)
+  )
+}
+
+export const getBoxModelHeight = (computedStyle, boundingClicentRect) => {
+  return (
+    parseInt(getContentHeight(computedStyle, boundingClicentRect)) +
+    getBorderTopWidth(computedStyle) +
+    getBorderBottomWidth(computedStyle)
+  )
+}
+
 export const getMarginTop = computedStyle => {
   return Math.max(parseInt(computedStyle.marginTop, 10), 0)
 }

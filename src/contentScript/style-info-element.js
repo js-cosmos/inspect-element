@@ -1,12 +1,5 @@
-import configs, { onChange } from '../configs'
-import { getContentHeight, getContentWidth, rgbaToHex } from '../util'
-
-// listen show style info
-let showStyleInfo = undefined
-const getRealCoverSidelineColor = () => {
-  showStyleInfo = configs.showStyleInfo ?? true
-}
-onChange('showStyleInfo', getRealCoverSidelineColor)
+import configs from '../configs'
+import { getBoxModelHeight, getBoxModelWidth, rgbaToHex } from '../util'
 
 const appendChildElementIfNotExist = (element, parentElement) => {
   if (parentElement.contains(element) === false) parentElement.appendChild(element)
@@ -62,8 +55,8 @@ const setSelectorsElement = (element, parentElement, target) => {
 const setSizeElement = (element, parentElement, computedStyle, boundingClicentRect) => {
   appendChildElementIfNotExist(element, parentElement)
 
-  const tragetWidth = parseInt(getContentWidth(computedStyle, boundingClicentRect))
-  const tragetHeight = parseInt(getContentHeight(computedStyle, boundingClicentRect))
+  const tragetWidth = getBoxModelWidth(computedStyle, boundingClicentRect)
+  const tragetHeight = getBoxModelHeight(computedStyle, boundingClicentRect)
   element.textContent = `${tragetWidth} x ${tragetHeight}`
   element.style.color = '#777'
   element.style.whiteSpace = 'nowrap'
@@ -187,7 +180,7 @@ const styleInfoChildElements = {
 }
 
 export const appendStyleInfoEelment = (computedStyle, boundingClicentRect, mouseEvent, target) => {
-  if (!showStyleInfo) return
+  if (!configs.showStyleInfo) return
   appendChildElementIfNotExist(styleInfoChildElements.root, document.body)
   setRootPosition(styleInfoChildElements.root, mouseEvent)
   setContentElement(styleInfoChildElements, computedStyle, boundingClicentRect, target)
