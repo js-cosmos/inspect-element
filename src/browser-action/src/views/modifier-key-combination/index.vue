@@ -1,8 +1,9 @@
 <template lang="pug">
   v-list
-    v-subheader Modifier key combination
     v-list-item
-      v-text-field.pl-3.mt-1( :value="description" label="Press any key to set modifier key combination." @keydown.prevent="handleKeyDown" hide-details="auto" )
+      v-text-field.mt-1( :value="description" label="Press any key to set modifier key combination." @keydown.prevent="handleKeyDown" hide-details="auto" )
+    v-list-item
+      v-checkbox( v-model="isPrintTargetElement" label="Log element on click." )
 </template>
 
 <script>
@@ -15,6 +16,7 @@ export default {
   data() {
     return {
       modifierKeyCombination: configs.modifierKeyCombination,
+      isPrintTargetElement: configs.isPrintTargetElement,
     }
   },
 
@@ -29,10 +31,15 @@ export default {
       if (this.modifierKeyCombination !== configs.modifierKeyCombination)
         chrome.storage.sync.set({ modifierKeyCombination: this.modifierKeyCombination })
     },
+    isPrintTargetElement() {
+      if (this.isPrintTargetElement !== configs.isPrintTargetElement)
+        chrome.storage.sync.set({ isPrintTargetElement: this.isPrintTargetElement })
+    },
   },
 
   created() {
     onChange('modifierKeyCombination', newValue => (this.modifierKeyCombination = newValue))
+    onChange('isPrintTargetElement', newValue => (this.isPrintTargetElement = newValue))
   },
 
   methods: {
@@ -46,3 +53,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+/deep/.v-input__control {
+  height: 28px;
+}
+</style>
