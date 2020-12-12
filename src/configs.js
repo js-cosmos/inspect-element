@@ -5,7 +5,7 @@ const configs = {
   marginColor: '#FC923580',
   mode: 'margin',
   modifierKeyCombination: ['metaKey'],
-  isPrintTargetElement: false,
+  shouldPrintTargetElement: false,
   isCoverSidelineEnabled: true,
   isPaddingSidelineEnabled: true,
   isBorderSidelineEnabled: true,

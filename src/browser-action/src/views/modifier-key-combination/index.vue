@@ -3,7 +3,7 @@
     v-list-item
       v-text-field.mt-1( :value="description" label="Press any key to set modifier key combination." @keydown.prevent="handleKeyDown" hide-details="auto" )
     v-list-item
-      v-checkbox( v-model="isPrintTargetElement" label="Log element on click." )
+      v-checkbox( v-model="shouldPrintTargetElement" label="Log element on click." )
 </template>
 
 <script>
@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       modifierKeyCombination: configs.modifierKeyCombination,
-      isPrintTargetElement: configs.isPrintTargetElement,
+      shouldPrintTargetElement: configs.shouldPrintTargetElement,
     }
   },
 
@@ -31,15 +31,15 @@ export default {
       if (this.modifierKeyCombination !== configs.modifierKeyCombination)
         chrome.storage.sync.set({ modifierKeyCombination: this.modifierKeyCombination })
     },
-    isPrintTargetElement() {
-      if (this.isPrintTargetElement !== configs.isPrintTargetElement)
-        chrome.storage.sync.set({ isPrintTargetElement: this.isPrintTargetElement })
+    shouldPrintTargetElement() {
+      if (this.shouldPrintTargetElement !== configs.shouldPrintTargetElement)
+        chrome.storage.sync.set({ shouldPrintTargetElement: this.shouldPrintTargetElement })
     },
   },
 
   created() {
     onChange('modifierKeyCombination', newValue => (this.modifierKeyCombination = newValue))
-    onChange('isPrintTargetElement', newValue => (this.isPrintTargetElement = newValue))
+    onChange('shouldPrintTargetElement', newValue => (this.shouldPrintTargetElement = newValue))
   },
 
   methods: {

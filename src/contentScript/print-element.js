@@ -1,23 +1,23 @@
 import configs, { onChange } from '../configs'
 
 let actionKeyList = undefined
-let isPrintTargetElement = undefined
+let shouldPrintTargetElement = undefined
 
 const getActionKeyList = () => {
   actionKeyList = configs.modifierKeyCombination
 }
-const getIsPrintTargetElement = () => {
-  isPrintTargetElement = configs.isPrintTargetElement
+const getshouldPrintTargetElement = () => {
+  shouldPrintTargetElement = configs.shouldPrintTargetElement
 }
 
 getActionKeyList()
-getIsPrintTargetElement()
+getshouldPrintTargetElement()
 
 onChange('modifierKeyCombination', getActionKeyList)
-onChange('isPrintTargetElement', getIsPrintTargetElement)
+onChange('shouldPrintTargetElement', getshouldPrintTargetElement)
 
 export const getTargetElement = event => {
-  if (isPrintTargetElement === false) return
+  if (shouldPrintTargetElement === false) return
   for (let key of actionKeyList) {
     if (event[key] === false) return
   }
