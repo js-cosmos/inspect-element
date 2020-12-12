@@ -1,5 +1,6 @@
 import { findHoveredElement } from './find-element'
 import { appendElements, removeElements } from './append-element'
+import { getTargetElement } from './print-element'
 import configs from '../configs'
 import { MODIFIER_KEYS } from '../util'
 
@@ -36,3 +37,6 @@ window.addEventListener('mousemove', onMousemove)
 
 window.removeEventListener('keyup', removeElements)
 window.addEventListener('keyup', removeElements)
+
+// print targetNode
+window.addEventListener('click', getTargetElement)
