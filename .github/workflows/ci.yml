@@ -1,4 +1,4 @@
-name: Test
+name: CI
 on: push
 jobs:
   lint:
@@ -115,3 +115,37 @@ jobs:
       # TODO: sometimes will failed
       # - name: Test
       #   run: yarn test
+
+  deployment:
+    name: Deployment
+
+    needs: [lint, linux, macos, windows]
+
+    if: ${{ success() && github.ref == 'refs/heads/master' }}
+
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@master
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Upload and deploy
+        uses: Passiverecords/chrome-extension-upload-action@1.4.1
+        with:
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          file-name: 'dist.zip'
+          app-id: 'flgcpmeleoikcibkiaiindbcjeldcogp'
+          publish: true
