@@ -5,7 +5,25 @@ it('should inspect', async () => {
   const browser: Browser = await launch()
   const page: Page = await browser.newPage()
 
-  await page.goto('https://js-cosmos.github.io/inspect-element/tests/cover/index.html')
+  await page.goto('https://google.com')
+  await page.evaluate(() => {
+    const html = `
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        #test {
+          width: 30px;
+          height: 40px;
+        }
+      </style>
+      <div id="test">div</div>
+    `
+
+    document.body.innerHTML = html
+  })
+
   await page.keyboard.down('Meta')
   await page.mouse.move(10, 10)
 

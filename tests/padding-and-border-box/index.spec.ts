@@ -5,7 +5,27 @@ it('should inspect', async () => {
   const browser: Browser = await launch()
   const page: Page = await browser.newPage()
 
-  await page.goto('https://js-cosmos.github.io/inspect-element/tests/padding-and-border-box/index.html')
+  await page.goto('https://google.com')
+  await page.evaluate(() => {
+    const html = `
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        #test {
+          width: 30px;
+          height: 40px;
+          padding: 50px 51px 52px 53px;
+          box-sizing: border-box;
+        }
+      </style>
+      <div id="test">div</div>
+    `
+
+    document.body.innerHTML = html
+  })
+
   await page.keyboard.down('Meta')
   await page.mouse.move(10, 10)
 

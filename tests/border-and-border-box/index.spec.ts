@@ -6,7 +6,31 @@ it('should inspect', async () => {
   const browser: Browser = await launch()
   const page: Page = await browser.newPage()
 
-  await page.goto('https://js-cosmos.github.io/inspect-element/tests/border-and-border-box/index.html')
+  await page.goto('https://google.com')
+  await page.evaluate(() => {
+    const html = `
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        #test {
+          width: 30px;
+          height: 40px;
+          border: 0px solid black;
+          border-top-width: 70px;
+          border-right-width: 71px;
+          border-bottom-width: 72px;
+          border-left-width: 73px;
+          box-sizing: border-box;
+        }
+      </style>
+      <div id="test">div</div>
+    `
+
+    document.body.innerHTML = html
+  })
+
   await page.keyboard.down('Meta')
   await page.mouse.move(10, 10)
 
