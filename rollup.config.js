@@ -1,6 +1,6 @@
 import del from 'rollup-plugin-delete'
 import copy from 'rollup-plugin-copy'
-import minify from 'rollup-plugin-babel-minify'
+import { terser } from 'rollup-plugin-terser'
 
 const contentScript = {
   input: './src/contentScript/index.js',
@@ -12,9 +12,7 @@ const contentScript = {
     del({
       targets: ['dist/manifest.json', 'dist/images', 'dist/content-script'],
     }),
-    minify({
-      sourceMap: false,
-    }),
+    terser(),
     copy({
       targets: [
         {
