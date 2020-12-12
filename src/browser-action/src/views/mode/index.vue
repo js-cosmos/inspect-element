@@ -2,7 +2,7 @@
   v-list
     v-subheader Mode
     v-list-item
-      v-radio-group.pl-3.mt-1( v-model="mode" hide-details="auto" )
+      v-radio-group.ml-2.mt-1( v-model="mode" hide-details="auto" )
         v-radio( label="Content" value="content" )
         v-radio( label="Margin" value="margin" )
 </template>
