@@ -4,6 +4,8 @@ import { getTargetElement } from './print-element'
 import configs from '../configs'
 import { MODIFIER_KEYS } from '../util'
 
+let target = null
+
 const isKeyCombinationActive = event => {
   return (
     configs.modifierKeyCombination.every(key => event[key]) &&
@@ -17,7 +19,7 @@ const onMousemove = event => {
     return
   }
 
-  const target = findHoveredElement(event)
+  target = findHoveredElement(event)
 
   if (event && event.target && event.target.dataset && event.target.dataset.inspectElement) {
     // remove covered element first if move mouse over it
@@ -39,4 +41,4 @@ window.removeEventListener('keyup', removeElements)
 window.addEventListener('keyup', removeElements)
 
 // print targetNode
-window.addEventListener('click', getTargetElement)
+window.addEventListener('click', event => getTargetElement(event, target))
