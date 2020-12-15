@@ -16,7 +16,7 @@ getshouldPrintTargetElement()
 onChange('modifierKeyCombination', getActionKeyList)
 onChange('shouldPrintTargetElement', getshouldPrintTargetElement)
 
-export const getTargetElement = (event, target) => {
+export const printTargetElement = (event, target) => {
   if (shouldPrintTargetElement === false) return
   for (let key of actionKeyList) {
     if (event[key] === false) return

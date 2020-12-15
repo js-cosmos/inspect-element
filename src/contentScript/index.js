@@ -1,6 +1,6 @@
 import { findHoveredElement } from './find-element'
 import { appendElements, removeElements } from './append-element'
-import { getTargetElement } from './print-element'
+import { printTargetElement } from './print-element'
 import configs from '../configs'
 import { MODIFIER_KEYS } from '../util'
 
@@ -41,4 +41,6 @@ window.removeEventListener('keyup', removeElements)
 window.addEventListener('keyup', removeElements)
 
 // print targetNode
-window.addEventListener('click', event => getTargetElement(event, target))
+const onClick = event => printTargetElement(event, target)
+window.removeEventListener('click', onClick)
+window.addEventListener('click', onClick)
