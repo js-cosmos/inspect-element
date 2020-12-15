@@ -1,0 +1,17 @@
+name: Auto merge
+on:
+  schedule:
+    - cron: '0 0-23 * * *'
+jobs:
+  auto-merge:
+    name: Merge develop into master
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Merge
+        uses: mtanzi/action-automerge@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source: 'develop'
+          target: 'master'
