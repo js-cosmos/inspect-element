@@ -15,6 +15,7 @@ jobs:
         with:
           stable_branch: 'develop'
           development_branch: 'master'
+          allow_ff: true
           ff_only: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
