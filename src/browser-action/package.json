@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "core-js": "^3.8.2",
+    "core-js": "^3.8.3",
     "vue": "^2.6.11",
     "vuetify": "^2.4.2"
   },
