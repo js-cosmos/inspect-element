@@ -24,7 +24,8 @@
     "release": "standard-version",
     "test": "jest tests/*",
     "serve": "yarn build --watch",
-    "lint": "prettier . --check"
+    "lint": "prettier . --check",
+    "postinstall": "husky install"
   },
   "standard-version": {
     "scripts": {
