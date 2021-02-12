@@ -44,7 +44,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@types/chrome": "^0.0.129",
+    "@types/chrome": "^0.0.130",
     "@types/jest": "^26.0.20",
     "@types/puppeteer": "^5.4.3",
     "cross-zip": "^4.0.0",
