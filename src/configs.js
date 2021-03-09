@@ -14,6 +14,8 @@ const configs = {
   paddingSidelineColor: '#62D56EB3',
   borderSidelineColor: '#DDE648B3',
   marginSidelineColor: '#FC9235B3',
+  count: 0,
+  dismissed: false,
 }
 const configKeys = Object.keys(configs)
 
