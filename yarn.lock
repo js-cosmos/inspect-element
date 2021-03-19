@@ -1894,7 +1894,7 @@
   optionalDependencies:
     vue-loader-v16 "npm:vue-loader@^16.1.0"
 
-"@vue/cli-shared-utils@^4.5.11", "@vue/cli-shared-utils@^4.5.12":
+"@vue/cli-shared-utils@^4.5.12":
   version "4.5.12"
   resolved "https://registry.yarnpkg.com/@vue/cli-shared-utils/-/cli-shared-utils-4.5.12.tgz#0e0693d488336d284ffa658ff33b1ea22927d065"
   integrity sha512-qnIQPJ4XckMoqYh9fJ0Y91QKMIb4Hiibrm9+k4E15QHpk5RaokuOpf10SsOr2NLPCXSWsHOLo3hduZSwHPGY/Q==
@@ -10844,9 +10844,9 @@ vue-cli-plugin-pug@^2.0.0:
     raw-loader "^4.0.2"
 
 vue-cli-plugin-vuetify@^2.1.0:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/vue-cli-plugin-vuetify/-/vue-cli-plugin-vuetify-2.2.2.tgz#4b29854ad199d811941b8ca894ca34593127e0bf"
-  integrity sha512-e0p9fuc7YDDUjTi8Uw5XNEwfTZmY+5+kZ22k9ZGsWtDOtWt1dW/oZt3aZtSLrhzEPSimkOWNBD7KZOB3fxNEGA==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/vue-cli-plugin-vuetify/-/vue-cli-plugin-vuetify-2.3.0.tgz#97ae8679e709b023e51a3135797dab59c5505d89"
+  integrity sha512-Cx6DmOC/awbtzRJtIZM+Dn13QGndhKmNbEYEhgZmcA0sZVyxYZCVBpcVdHky4LeTCj6vQA6AypLrWKTlnljhhg==
   dependencies:
     null-loader "^3.0.0"
     semver "^7.1.2"
