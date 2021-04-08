@@ -1,6 +1,6 @@
 # Inspect Element
 
-![E2E](https://github.com/iendeavor/inspect-element/workflows/E2E/badge.svg)
+![E2E](https://github.com/iendeavor/inspect-element/workflows/CI/badge.svg)
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=iendeavor.inspect-element)
 [![donate](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange)](https://www.buymeacoffee.com/iendeavor)
 
