@@ -1,22 +1,22 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-  versioning-strategy: lockfile-only
-  ignore:
-  - dependency-name: vuetify
-    versions:
-    - 2.4.10
-  - dependency-name: rollup
-    versions:
-    - 2.41.0
-  - dependency-name: sass-loader
-    versions:
-    - 11.0.0
-    - 11.0.1
-  - dependency-name: puppeteer
-    versions:
-    - 7.0.1
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    versioning-strategy: lockfile-only
+    ignore:
+      - dependency-name: vuetify
+        versions:
+          - 2.4.10
+      - dependency-name: rollup
+        versions:
+          - 2.41.0
+      - dependency-name: sass-loader
+        versions:
+          - 11.0.0
+          - 11.0.1
+      - dependency-name: puppeteer
+        versions:
+          - 7.0.1
