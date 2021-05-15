@@ -1,0 +1,294 @@
+import configs, { onChange } from '../configs'
+import { getContentWidth, getContentHeight } from '../util'
+
+let showRenderedElementInfo = undefined
+const getShowRenderedElementInfo = () => {
+  showRenderedElementInfo = configs.showRenderedElementInfo
+}
+getShowRenderedElementInfo()
+onChange('showRenderedElementInfo', getShowRenderedElementInfo)
+
+const removeOpacity = color => {
+  return color.slice(0, 7) + 'ee'
+}
+
+// listen color change event
+let coverColor = undefined
+const updateCoverColor = () => {
+  coverColor = removeOpacity(configs.coverColor)
+}
+updateCoverColor()
+onChange('coverColor', updateCoverColor)
+
+let paddingColor = undefined
+const updatePaddingColor = () => {
+  paddingColor = removeOpacity(configs.paddingColor)
+}
+updatePaddingColor()
+onChange('paddingColor', updatePaddingColor)
+
+let borderColor = undefined
+const updateBorderColor = () => {
+  borderColor = removeOpacity(configs.borderColor)
+}
+updateBorderColor()
+onChange('borderColor', updateBorderColor)
+
+let marginColor = undefined
+const updateMarginColor = () => {
+  marginColor = removeOpacity(configs.marginColor)
+}
+updateMarginColor()
+onChange('marginColor', updateMarginColor)
+
+const normalizeSize = size => {
+  size = parseFloat(size)
+    .toFixed(3)
+    .replace(/(.*\..*?)0+/g, '$1')
+    .replace(/\.$/, '')
+  return size === '0' ? '-' : size
+}
+
+const normalizeContentSize = size => {
+  return size
+    .toFixed(3)
+    .padStart(10, ' ')
+    .replaceAll(' ', '&nbsp;')
+    .replace(/(0+)$/g, s => '&nbsp;'.repeat(s.length))
+    .replace('.&nbsp;', '&nbsp;&nbsp;')
+}
+
+// cover
+const updateCover = (element, computedStyle, boundingClicentRect) => {
+  element.innerHTML =
+    `w ${normalizeContentSize(getContentWidth(computedStyle, boundingClicentRect))}` +
+    '<br>' +
+    `h ${normalizeContentSize(getContentHeight(computedStyle, boundingClicentRect))}`
+  element.style.backgroundColor = coverColor
+}
+
+// padding
+const updatePaddingTop = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingTop)}</p>`
+  element.style.backgroundColor = paddingColor
+}
+
+const updatePaddingRight = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingRight)}</p>`
+  element.style.backgroundColor = paddingColor
+}
+
+const updatePaddingBottom = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingBottom)}</p>`
+  element.style.backgroundColor = paddingColor
+}
+
+const updatePaddingLeft = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingLeft)}</p>`
+  element.style.backgroundColor = paddingColor
+}
+
+// border
+const updateBorderTop = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderTopWidth)}</p>`
+  element.style.backgroundColor = borderColor
+}
+
+const updateBorderRight = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderRightWidth)}</p>`
+  element.style.backgroundColor = borderColor
+}
+
+const updateBorderBottom = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderBottomWidth)}</p>`
+  element.style.backgroundColor = borderColor
+}
+
+const updateBorderLeft = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderLeftWidth)}</p>`
+  element.style.backgroundColor = borderColor
+}
+
+// margin
+const updateMarginTop = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginTop)}</p>`
+  element.style.backgroundColor = marginColor
+}
+
+const updateMarginRight = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginRight)}</p>`
+  element.style.backgroundColor = marginColor
+}
+
+const updateMarginBottom = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginBottom)}</p>`
+  element.style.backgroundColor = marginColor
+}
+
+const updateMarginLeft = (element, computedStyle) => {
+  element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginLeft)}</p>`
+  element.style.backgroundColor = marginColor
+}
+
+const templatePaddingRe = /^(\w+)Padding\d+$/
+const updateTemplatePadding = () => {
+  for (const key in elements) {
+    const [, type] = key.match(templatePaddingRe) ?? []
+    if (type === 'padding') elements[key].style.backgroundColor = paddingColor
+    if (type === 'border') elements[key].style.backgroundColor = borderColor
+    if (type === 'margin') elements[key].style.backgroundColor = marginColor
+  }
+}
+
+const createElement = id => {
+  const element = document.createElement('DIV')
+  element.dataset['inspectElement'] = 'inspectElement'
+  element.id = `inspect-element-rendered-element-info-${id}`
+  element.style.gridArea = id
+  element.style.zIndex = 9997
+  element.style.display = 'flex'
+  element.style.height = '100%'
+  element.style.alignItems = 'center'
+  element.style.justifyContent = 'center'
+  element.style.paddingLeft = '4px'
+  element.style.paddingRight = '4px'
+  element.style.pointerEvents = 'none'
+  return element
+}
+
+const wrapper = createElement('wrapper')
+wrapper.style.position = 'fixed'
+wrapper.style.display = 'grid'
+wrapper.style.fontFamily = 'monospace'
+wrapper.style.fontSize = '12px'
+wrapper.style.paddingLeft = '0'
+wrapper.style.paddingRight = '0'
+wrapper.style.height = 'unset'
+wrapper.style.gridTemplateAreas = `
+"margin-padding1  margin-padding2  margin-padding3  margin-top     margin-padding4  margin-padding5  margin-padding6 "
+"margin-padding7  border-padding1  border-padding2  border-top     border-padding3  border-padding4  margin-padding8 "
+"margin-padding9  border-padding5  padding-padding1 padding-top    padding-padding2 border-padding6  margin-padding10"
+"margin-left      border-left      padding-left     cover          padding-right    border-right     margin-right    "
+"margin-left      border-left      padding-left     cover          padding-right    border-right     margin-right    "
+"margin-left      border-left      padding-left     cover          padding-right    border-right     margin-right    "
+"margin-padding11 border-padding7  padding-padding3 padding-bottom padding-padding4 border-padding8  margin-padding12"
+"margin-padding13 border-padding9  border-padding10 border-bottom  border-padding11 border-padding12 margin-padding14"
+"margin-padding15 margin-padding16 margin-padding17 margin-bottom  margin-padding18 margin-padding19 margin-padding20"
+`
+wrapper.style.textAlign = 'center'
+
+const updatePosition = event => {
+  wrapper.style.top = 'unset'
+  wrapper.style.right = 'unset'
+  wrapper.style.bottom = 'unset'
+  wrapper.style.left = 'unset'
+
+  const halfOfViewPortClientWidth = document.documentElement.clientWidth / 2
+  const halfOfViewPortClientHeight = document.documentElement.clientHeight / 2
+  const clientX = event.clientX
+  const clientY = event.clientY
+
+  if (clientY < halfOfViewPortClientHeight) {
+    wrapper.style.bottom = 0
+  } else {
+    wrapper.style.top = 0
+  }
+  if (clientX < halfOfViewPortClientWidth) {
+    wrapper.style.right = 0
+  } else {
+    wrapper.style.left = 0
+  }
+}
+
+const elements = {
+  cover: createElement('cover'),
+
+  paddingPadding: createElement('padding-padding'),
+  paddingTop: createElement('padding-top'),
+  paddingRight: createElement('padding-right'),
+  paddingBottom: createElement('padding-bottom'),
+  paddingLeft: createElement('padding-left'),
+
+  borderPadding: createElement('border-padding'),
+  borderTop: createElement('border-top'),
+  borderRight: createElement('border-right'),
+  borderBottom: createElement('border-bottom'),
+  borderLeft: createElement('border-left'),
+
+  marginPadding: createElement('margin-padding'),
+  marginTop: createElement('margin-top'),
+  marginRight: createElement('margin-right'),
+  marginBottom: createElement('margin-bottom'),
+  marginLeft: createElement('margin-left'),
+
+  paddingPadding1: createElement('padding-padding1'),
+  paddingPadding2: createElement('padding-padding2'),
+  paddingPadding3: createElement('padding-padding3'),
+  paddingPadding4: createElement('padding-padding4'),
+  borderPadding1: createElement('border-padding1'),
+  borderPadding2: createElement('border-padding2'),
+  borderPadding3: createElement('border-padding3'),
+  borderPadding4: createElement('border-padding4'),
+  borderPadding5: createElement('border-padding5'),
+  borderPadding6: createElement('border-padding6'),
+  borderPadding7: createElement('border-padding7'),
+  borderPadding8: createElement('border-padding8'),
+  borderPadding9: createElement('border-padding9'),
+  borderPadding10: createElement('border-padding10'),
+  borderPadding11: createElement('border-padding11'),
+  borderPadding12: createElement('border-padding12'),
+  marginPadding1: createElement('margin-padding1'),
+  marginPadding2: createElement('margin-padding2'),
+  marginPadding3: createElement('margin-padding3'),
+  marginPadding4: createElement('margin-padding4'),
+  marginPadding5: createElement('margin-padding5'),
+  marginPadding6: createElement('margin-padding6'),
+  marginPadding7: createElement('margin-padding7'),
+  marginPadding8: createElement('margin-padding8'),
+  marginPadding9: createElement('margin-padding9'),
+  marginPadding10: createElement('margin-padding10'),
+  marginPadding11: createElement('margin-padding11'),
+  marginPadding12: createElement('margin-padding12'),
+  marginPadding13: createElement('margin-padding13'),
+  marginPadding14: createElement('margin-padding14'),
+  marginPadding15: createElement('margin-padding15'),
+  marginPadding16: createElement('margin-padding16'),
+  marginPadding17: createElement('margin-padding17'),
+  marginPadding18: createElement('margin-padding18'),
+  marginPadding19: createElement('margin-padding19'),
+  marginPadding20: createElement('margin-padding20'),
+}
+
+for (const element of Object.values(elements)) wrapper.appendChild(element)
+
+export const appendRenderedElementInfo = (computedStyle, boundingClicentRect, event) => {
+  if (showRenderedElementInfo === false) return
+  if (document.body.contains(wrapper) === false) document.body.appendChild(wrapper)
+
+  updatePosition(event)
+
+  updateCover(elements.cover, computedStyle, boundingClicentRect)
+
+  updateTemplatePadding()
+
+  updatePaddingTop(elements.paddingTop, computedStyle, boundingClicentRect)
+  updatePaddingRight(elements.paddingRight, computedStyle, boundingClicentRect)
+  updatePaddingBottom(elements.paddingBottom, computedStyle, boundingClicentRect)
+  updatePaddingLeft(elements.paddingLeft, computedStyle, boundingClicentRect)
+
+  updateBorderTop(elements.borderTop, computedStyle, boundingClicentRect)
+  updateBorderRight(elements.borderRight, computedStyle, boundingClicentRect)
+  updateBorderBottom(elements.borderBottom, computedStyle, boundingClicentRect)
+  updateBorderLeft(elements.borderLeft, computedStyle, boundingClicentRect)
+
+  updateMarginTop(elements.marginTop, computedStyle, boundingClicentRect)
+  updateMarginRight(elements.marginRight, computedStyle, boundingClicentRect)
+  updateMarginBottom(elements.marginBottom, computedStyle, boundingClicentRect)
+  updateMarginLeft(elements.marginLeft, computedStyle, boundingClicentRect)
+}
+
+export const removeRenderedElementInfo = () => {
+  try {
+    document.body.removeChild(wrapper)
+  } catch {}
+}

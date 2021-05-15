@@ -6,6 +6,7 @@ const configs = {
   mode: 'margin',
   modifierKeyCombination: ['metaKey'],
   shouldPrintTargetElement: false,
+  showRenderedElementInfo: true,
   isCoverSidelineEnabled: true,
   isPaddingSidelineEnabled: true,
   isBorderSidelineEnabled: true,

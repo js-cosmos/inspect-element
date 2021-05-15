@@ -4,6 +4,8 @@
       v-text-field.mt-1( :value="description" label="Press any key to set modifier key combination." @keydown.prevent="handleKeyDown" hide-details="auto" )
     v-list-item
       v-checkbox( v-model="shouldPrintTargetElement" label="Log element on click." )
+    v-list-item
+      v-checkbox( v-model="showRenderedElementInfo" label="Show element size info." )
 </template>
 
 <script>
@@ -17,6 +19,7 @@ export default {
     return {
       modifierKeyCombination: configs.modifierKeyCombination,
       shouldPrintTargetElement: configs.shouldPrintTargetElement,
+      showRenderedElementInfo: configs.showRenderedElementInfo,
     }
   },
 
@@ -35,11 +38,16 @@ export default {
       if (this.shouldPrintTargetElement !== configs.shouldPrintTargetElement)
         chrome.storage.sync.set({ shouldPrintTargetElement: this.shouldPrintTargetElement })
     },
+    showRenderedElementInfo() {
+      if (this.showRenderedElementInfo !== configs.showRenderedElementInfo)
+        chrome.storage.sync.set({ showRenderedElementInfo: this.showRenderedElementInfo })
+    },
   },
 
   created() {
     onChange('modifierKeyCombination', newValue => (this.modifierKeyCombination = newValue))
     onChange('shouldPrintTargetElement', newValue => (this.shouldPrintTargetElement = newValue))
+    onChange('showRenderedElementInfo', newValue => (this.showRenderedElementInfo = newValue))
   },
 
   methods: {
