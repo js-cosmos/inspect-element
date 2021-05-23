@@ -1,16 +1,16 @@
 import configs from '../configs'
 
 // Find and return the hovered element based on the inspect mode.
-export function findHoveredElement(event) {
+export function findHoveredElement(event: MouseEvent) {
   if (configs.mode === 'content') return event.target
 
-  const element = isInElement(event, event.target)
+  const element = isInElement(event, event.target as Element)
   if (element) return element
 
   return event.target
 }
 
-const isInElement = (event, element) => {
+const isInElement = (event: MouseEvent, element: Element): Element | null => {
   const children = element.children
   if (children.length) {
     for (const child of Array.from(children)) {
@@ -34,13 +34,13 @@ const isInElement = (event, element) => {
   return null
 }
 
-const isInRect = (event, rect) => {
+const isInRect = (event: MouseEvent, rect: DOMRect) => {
   const clientY = event.clientY
   const clientX = event.clientX
   return clientY > rect.top && clientX < rect.right && clientY < rect.bottom && clientX > rect.left
 }
 
-const getBoundingBorderRect = (computedStyle, boundingClientRect) => {
+const getBoundingBorderRect = (computedStyle: CSSStyleDeclaration, boundingClientRect: DOMRect): DOMRect => {
   let top = boundingClientRect.top
   let right = boundingClientRect.right
   let bottom = boundingClientRect.bottom
@@ -67,10 +67,13 @@ const getBoundingBorderRect = (computedStyle, boundingClientRect) => {
     y: top,
     height: bottom - top,
     width: right - left,
+    toJSON: () => {
+      throw Error('Not yet implemented.')
+    },
   }
 }
 
-const getBoundingMarginRect = (computedStyle, boundingClientRect) => {
+const getBoundingMarginRect = (computedStyle: CSSStyleDeclaration, boundingClientRect: DOMRect) => {
   let top = boundingClientRect.top
   let right = boundingClientRect.right
   let bottom = boundingClientRect.bottom
@@ -102,5 +105,8 @@ const getBoundingMarginRect = (computedStyle, boundingClientRect) => {
     y: top,
     height: bottom - top,
     width: right - left,
+    toJSON: () => {
+      throw Error('Not yet implemented.')
+    },
   }
 }

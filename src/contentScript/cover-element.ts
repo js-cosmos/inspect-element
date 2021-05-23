@@ -20,7 +20,7 @@ import {
 
 // all use the content box to compute top, width, etc.
 
-const setCoverStyle = (element, computedStyle, boundingClicentRect) => {
+const setCoverStyle = (element: HTMLElement, computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   element.style.backgroundColor = configs.coverColor
   element.style.top = getContentTopPosition(computedStyle, boundingClicentRect) + 'px'
   element.style.left = getContentLeftPosition(computedStyle, boundingClicentRect) + 'px'
@@ -28,7 +28,7 @@ const setCoverStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.width = getContentWidth(computedStyle, boundingClicentRect) + 'px'
 }
 
-const setPaddingStyle = (element, computedStyle, boundingClicentRect) => {
+const setPaddingStyle = (element: HTMLElement, computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   element.style.top = getContentTopPosition(computedStyle, boundingClicentRect) - getPaddingTop(computedStyle) + 'px'
   element.style.left = getContentLeftPosition(computedStyle, boundingClicentRect) - getPaddingLeft(computedStyle) + 'px'
   element.style.height = getContentHeight(computedStyle, boundingClicentRect) + 'px'
@@ -40,7 +40,7 @@ const setPaddingStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.borderLeftWidth = getPaddingLeft(computedStyle) + 'px'
 }
 
-const setBorderStyle = (element, computedStyle, boundingClicentRect) => {
+const setBorderStyle = (element: HTMLElement, computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   element.style.top =
     getContentTopPosition(computedStyle, boundingClicentRect) -
     getPaddingTop(computedStyle) -
@@ -68,7 +68,7 @@ const setBorderStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.borderLeftWidth = getBorderLeftWidth(computedStyle) + 'px'
 }
 
-const setMarginStyle = (element, computedStyle, boundingClicentRect) => {
+const setMarginStyle = (element: HTMLElement, computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   element.style.top =
     getContentTopPosition(computedStyle, boundingClicentRect) -
     getPaddingTop(computedStyle) -
@@ -102,17 +102,17 @@ const setMarginStyle = (element, computedStyle, boundingClicentRect) => {
   element.style.borderLeftWidth = getMarginLeft(computedStyle) + 'px'
 }
 
-const createElement = id => {
+const createElement = (id: string) => {
   const element = document.createElement('DIV')
   setCommonStyle(element, id)
   return element
 }
 
-const setCommonStyle = (element, id) => {
+const setCommonStyle = (element: HTMLElement, id: string) => {
   element.dataset['inspectElement'] = 'inspectElement'
   element.id = `inspect-element-${id}`
   element.style.position = 'fixed'
-  element.style.zIndex = 9999
+  element.style.zIndex = '9999'
   element.style.pointerEvents = 'none'
   element.style.backgroundColor = 'transparent'
   element.style.borderStyle = 'solid'
@@ -128,7 +128,7 @@ const coverElements = {
   margin: createElement('margin'),
 }
 
-export const appendCoverElements = (computedStyle, boundingClicentRect) => {
+export const appendCoverElements = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   for (const element of Object.values(coverElements))
     if (document.body.contains(element) === false) document.body.appendChild(element)
 
