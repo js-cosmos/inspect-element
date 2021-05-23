@@ -1,19 +1,20 @@
 <template lang="pug">
-  v-list.mx-auto(v-if="count > 300 && dismissed === false")
-    v-subheader How satisfied are you with our product?
-    v-list-item
-      v-btn.mx-auto(@click="openExtensionPage" rounded small)
-        span Rate us on Google
-        v-icon.ml-0(x-small right color="orange") mdi-star
-    v-list-item
-      v-btn.mx-auto.mt-1(@click="dismiss" text rounded small)
-        span Dismiss
+v-list.mx-auto(v-if="count > 300 && dismissed === false")
+  v-subheader How satisfied are you with our product?
+  v-list-item
+    v-btn.mx-auto(@click="openExtensionPage" rounded small)
+      span Rate us on Google
+      v-icon.ml-0(x-small right color="orange") mdi-star
+  v-list-item
+    v-btn.mx-auto.mt-1(@click="dismiss" text rounded small)
+      span Dismiss
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import configs, { onChange } from '../../../../configs'
 
-export default {
+export default defineComponent({
   data() {
     return {
       count: configs.count,
@@ -37,5 +38,5 @@ export default {
       chrome.storage.sync.set({ dismissed: true })
     },
   },
-}
+})
 </script>

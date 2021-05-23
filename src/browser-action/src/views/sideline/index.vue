@@ -1,29 +1,30 @@
 <template lang="pug">
-  v-list
-    v-subheader Sideline
-    v-list-item.my-2
-      v-checkbox.ml-2.mt-0.pt-0( v-model="isCoverSidelineEnabled" )
-      color-picker( v-model="coverSidelineColor" )
-      v-label Cover
-    v-list-item.mb-2
-      v-checkbox.ml-2.mt-0.pt-0( v-model="isPaddingSidelineEnabled" )
-      color-picker( v-model="paddingSidelineColor" )
-      v-label Padding
-    v-list-item.mb-2
-      v-checkbox.ml-2.mt-0.pt-0( v-model="isBorderSidelineEnabled" )
-      color-picker( v-model="borderSidelineColor" )
-      v-label Border
-    v-list-item
-      v-checkbox.ml-2.mt-0.pt-0( v-model="isMarginSidelineEnabled" )
-      color-picker( v-model="marginSidelineColor" )
-      v-label Margin
+v-list
+  v-subheader Sideline
+  v-list-item.my-2
+    v-checkbox.ml-2.mt-0.pt-0( v-model="isCoverSidelineEnabled" )
+    color-picker( v-model="coverSidelineColor" )
+    v-label Cover
+  v-list-item.mb-2
+    v-checkbox.ml-2.mt-0.pt-0( v-model="isPaddingSidelineEnabled" )
+    color-picker( v-model="paddingSidelineColor" )
+    v-label Padding
+  v-list-item.mb-2
+    v-checkbox.ml-2.mt-0.pt-0( v-model="isBorderSidelineEnabled" )
+    color-picker( v-model="borderSidelineColor" )
+    v-label Border
+  v-list-item
+    v-checkbox.ml-2.mt-0.pt-0( v-model="isMarginSidelineEnabled" )
+    color-picker( v-model="marginSidelineColor" )
+    v-label Margin
 </template>
 
 <script>
-import ColorPicker from '../../components/color-picker'
+import { defineComponent } from 'vue'
+import ColorPicker from '../../components/color-picker.vue'
 import configs, { onChange } from '../../../../configs'
 
-export default {
+export default defineComponent({
   name: 'enable-disable-sideline',
 
   components: {
@@ -88,11 +89,11 @@ export default {
     onChange('borderSidelineColor', newValue => (this.borderSidelineColor = newValue))
     onChange('marginSidelineColor', newValue => (this.marginSidelineColor = newValue))
   },
-}
+})
 </script>
 
 <style scoped>
-/deep/.v-input__control {
+:deep(.v-input__control) {
   height: 28px;
 }
 

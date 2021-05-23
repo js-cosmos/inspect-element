@@ -1,18 +1,19 @@
 <template lang="pug">
-  v-list
-    v-list-item
-      v-text-field.mt-1( :value="description" label="Press any key to set modifier key combination." @keydown.prevent="handleKeyDown" hide-details="auto" )
-    v-list-item
-      v-checkbox( v-model="shouldPrintTargetElement" label="Log element on click." )
-    v-list-item
-      v-checkbox( v-model="showRenderedElementInfo" label="Show element size info." )
+v-list
+  v-list-item
+    v-text-field.mt-1( :value="description" label="Press any key to set modifier key combination." @keydown.prevent="handleKeyDown" hide-details="auto" )
+  v-list-item
+    v-checkbox( v-model="shouldPrintTargetElement" label="Log element on click." )
+  v-list-item
+    v-checkbox( v-model="showRenderedElementInfo" label="Show element size info." )
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import configs, { onChange } from '../../../../configs'
 import { MODIFIER_KEYS } from '../../../../util'
 
-export default {
+export default defineComponent({
   name: 'modifier-key-combination',
 
   data() {
@@ -59,11 +60,11 @@ export default {
     },
     noop: () => {},
   },
-}
+})
 </script>
 
 <style scoped>
-/deep/.v-input__control {
+:deep(.v-input__control) {
   height: 28px;
 }
 </style>
