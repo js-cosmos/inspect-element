@@ -1,22 +1,23 @@
 <template lang="pug">
-  v-app
-    rate-us
-    modifier-key-combination
-    mode
-    color
-    sideline
-    christmas
+v-app
+  rate-us
+  modifier-key-combination
+  mode
+  color
+  sideline
+  christmas
 </template>
 
 <script>
-import RateUs from './views/rate-us'
-import modifierKeyCombination from './views/modifier-key-combination'
-import Color from './views/color'
-import Mode from './views/mode'
-import Sideline from './views/sideline'
-import Christmas from './views/christmas'
+import { defineComponent } from 'vue'
+import RateUs from './views/rate-us/index.vue'
+import modifierKeyCombination from './views/modifier-key-combination/index.vue'
+import Color from './views/color/index.vue'
+import Mode from './views/mode/index.vue'
+import Sideline from './views/sideline/index.vue'
+import Christmas from './views/christmas/index.vue'
 
-export default {
+export default defineComponent({
   name: 'App',
 
   components: {
@@ -27,7 +28,7 @@ export default {
     Sideline,
     Christmas,
   },
-}
+})
 </script>
 
 <style>

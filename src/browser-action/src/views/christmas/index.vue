@@ -1,8 +1,8 @@
 <template lang="pug">
-  ul.g-snows(v-if="new Date().getMonth() === 11 && (new Date().getDate() === 24 || new Date().getDate() === 25)")
-    - for (var i = 0; i < 40; i++) {
-      li
-    - }
+ul.g-snows(v-if="new Date().getMonth() === 11 && (new Date().getDate() === 24 || new Date().getDate() === 25)")
+  - for (var i = 0; i < 40; i++) {
+    li
+  - }
 </template>
 
 <style scoped>
