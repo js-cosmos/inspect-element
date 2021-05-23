@@ -4,16 +4,17 @@ import { printTargetElement } from './print-element'
 import configs from '../configs'
 import { MODIFIER_KEYS } from '../util'
 
-let target = null
+let target: EventTarget | null
 
-const isKeyCombinationActive = event => {
+const isKeyCombinationActive = (event: MouseEvent) => {
   return (
-    configs.modifierKeyCombination.every(key => event[key]) &&
-    MODIFIER_KEYS.filter(key => configs.modifierKeyCombination.includes(key) === false).some(key => event[key]) ===
-      false
+    configs.modifierKeyCombination.every(key => (event as any)[key]) &&
+    MODIFIER_KEYS.filter(key => configs.modifierKeyCombination.includes(key) === false).some(
+      key => (event as any)[key],
+    ) === false
   )
 }
-const onMousemove = event => {
+const onMousemove = (event: MouseEvent) => {
   if (!event || !event.target || event.target === document || isKeyCombinationActive(event) === false) {
     removeElements()
     return
@@ -21,11 +22,18 @@ const onMousemove = event => {
 
   target = findHoveredElement(event)
 
-  if (event && event.target && event.target.dataset && event.target.dataset.inspectElement) {
+  if (target === null) return
+  if (
+    event &&
+    event.target &&
+    (event.target as HTMLElement).dataset &&
+    (event.target as HTMLElement).dataset.inspectElement
+  ) {
     // remove covered element first if move mouse over it
     removeElements()
 
     requestAnimationFrame(() => {
+      if (target === null) return
       appendElements(target, event)
     })
   } else {
@@ -41,6 +49,9 @@ window.removeEventListener('keyup', removeElements)
 window.addEventListener('keyup', removeElements)
 
 // print targetNode
-const onClick = event => printTargetElement(event, target)
+const onClick = (event: MouseEvent) => {
+  if (target === null) return
+  printTargetElement(event, target)
+}
 window.removeEventListener('click', onClick)
 window.addEventListener('click', onClick)

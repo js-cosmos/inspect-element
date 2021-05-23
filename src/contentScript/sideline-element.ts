@@ -15,7 +15,7 @@ import {
 } from '../util'
 
 // listen color change event
-let realCoverSidelineColor = undefined
+let realCoverSidelineColor: string
 const getRealCoverSidelineColor = () => {
   realCoverSidelineColor = configs.isCoverSidelineEnabled ? configs.coverSidelineColor : 'transparent'
 }
@@ -23,7 +23,7 @@ getRealCoverSidelineColor()
 onChange('coverSidelineColor', getRealCoverSidelineColor)
 onChange('isCoverSidelineEnabled', getRealCoverSidelineColor)
 
-let realPaddingSidelineColor = undefined
+let realPaddingSidelineColor: string
 const getRealPaddingSidelineColor = () => {
   realPaddingSidelineColor = configs.isPaddingSidelineEnabled ? configs.paddingSidelineColor : 'transparent'
 }
@@ -31,7 +31,7 @@ getRealPaddingSidelineColor()
 onChange('paddingSidelineColor', getRealPaddingSidelineColor)
 onChange('isPaddingSidelineEnabled', getRealPaddingSidelineColor)
 
-let realBorderSidelineColor = undefined
+let realBorderSidelineColor: string
 const getRealBorderSidelineColor = () => {
   realBorderSidelineColor = configs.isBorderSidelineEnabled ? configs.borderSidelineColor : 'transparent'
 }
@@ -39,7 +39,7 @@ getRealBorderSidelineColor()
 onChange('borderSidelineColor', getRealBorderSidelineColor)
 onChange('isBorderSidelineEnabled', getRealBorderSidelineColor)
 
-let realMarginSidelineColor = undefined
+let realMarginSidelineColor: string
 const getRealMarginSidelineColor = () => {
   realMarginSidelineColor = configs.isMarginSidelineEnabled ? configs.marginSidelineColor : 'transparent'
 }
@@ -48,7 +48,11 @@ onChange('marginSidelineColor', getRealMarginSidelineColor)
 onChange('isMarginSidelineEnabled', getRealMarginSidelineColor)
 
 // cover
-const setCoverSidelineTopStyle = (element, computedStyle, boundingClicentRect) => {
+const setCoverSidelineTopStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = getCoverSidelineTop(computedStyle, boundingClicentRect) - 1 + 'px'
   element.style.left = '0'
   element.style.borderColor = realCoverSidelineColor
@@ -56,7 +60,11 @@ const setCoverSidelineTopStyle = (element, computedStyle, boundingClicentRect) =
   element.style.width = '100vw'
 }
 
-const setCoverSidelineRightStyle = (element, computedStyle, boundingClicentRect) => {
+const setCoverSidelineRightStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = '0'
   element.style.left = getCoverSidelineRight(computedStyle, boundingClicentRect) + 'px'
   element.style.borderColor = realCoverSidelineColor
@@ -64,7 +72,11 @@ const setCoverSidelineRightStyle = (element, computedStyle, boundingClicentRect)
   element.style.height = '100vh'
 }
 
-const setCoverSidelineBottomStyle = (element, computedStyle, boundingClicentRect) => {
+const setCoverSidelineBottomStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = getCoverSidelineBottom(computedStyle, boundingClicentRect) + 'px'
   element.style.left = '0'
   element.style.borderColor = realCoverSidelineColor
@@ -72,7 +84,11 @@ const setCoverSidelineBottomStyle = (element, computedStyle, boundingClicentRect
   element.style.width = '100vw'
 }
 
-const setCoverSidelineLeftStyle = (element, computedStyle, boundingClicentRect) => {
+const setCoverSidelineLeftStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = '0'
   element.style.left = getCoverSidelineLeft(computedStyle, boundingClicentRect) - 1 + 'px'
   element.style.borderColor = realCoverSidelineColor
@@ -81,7 +97,11 @@ const setCoverSidelineLeftStyle = (element, computedStyle, boundingClicentRect) 
 }
 
 // padding
-const setPaddingSidelineTopStyle = (element, computedStyle, boundingClicentRect) => {
+const setPaddingSidelineTopStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = getPaddingSidelineTop(computedStyle, boundingClicentRect) - 1 + 'px'
   element.style.left = '0'
   element.style.borderColor = realPaddingSidelineColor
@@ -89,7 +109,11 @@ const setPaddingSidelineTopStyle = (element, computedStyle, boundingClicentRect)
   element.style.width = '100vw'
 }
 
-const setPaddingSidelineRightStyle = (element, computedStyle, boundingClicentRect) => {
+const setPaddingSidelineRightStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = '0'
   element.style.left = getPaddingSidelineRight(computedStyle, boundingClicentRect) + 'px'
   element.style.borderColor = realPaddingSidelineColor
@@ -97,7 +121,11 @@ const setPaddingSidelineRightStyle = (element, computedStyle, boundingClicentRec
   element.style.height = '100vh'
 }
 
-const setPaddingSidelineBottomStyle = (element, computedStyle, boundingClicentRect) => {
+const setPaddingSidelineBottomStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = getPaddingSidelineBottom(computedStyle, boundingClicentRect) + 'px'
   element.style.left = '0'
   element.style.borderColor = realPaddingSidelineColor
@@ -105,7 +133,11 @@ const setPaddingSidelineBottomStyle = (element, computedStyle, boundingClicentRe
   element.style.width = '100vw'
 }
 
-const setPaddingSidelineLeftStyle = (element, computedStyle, boundingClicentRect) => {
+const setPaddingSidelineLeftStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = '0'
   element.style.left = getPaddingSidelineLeft(computedStyle, boundingClicentRect) - 1 + 'px'
   element.style.borderColor = realPaddingSidelineColor
@@ -114,7 +146,7 @@ const setPaddingSidelineLeftStyle = (element, computedStyle, boundingClicentRect
 }
 
 // border
-const setBorderSidelineTopStyle = (element, boundingClicentRect) => {
+const setBorderSidelineTopStyle = (element: HTMLElement, boundingClicentRect: DOMRect) => {
   element.style.top = boundingClicentRect.top - 1 + 'px'
   element.style.left = '0'
   element.style.borderColor = realBorderSidelineColor
@@ -122,7 +154,7 @@ const setBorderSidelineTopStyle = (element, boundingClicentRect) => {
   element.style.width = '100vw'
 }
 
-const setBorderSidelineRightStyle = (element, boundingClicentRect) => {
+const setBorderSidelineRightStyle = (element: HTMLElement, boundingClicentRect: DOMRect) => {
   element.style.top = '0'
   element.style.left = boundingClicentRect.right + 'px'
   element.style.borderColor = realBorderSidelineColor
@@ -130,7 +162,7 @@ const setBorderSidelineRightStyle = (element, boundingClicentRect) => {
   element.style.height = '100vh'
 }
 
-const setBorderSidelineBottomStyle = (element, boundingClicentRect) => {
+const setBorderSidelineBottomStyle = (element: HTMLElement, boundingClicentRect: DOMRect) => {
   element.style.top = boundingClicentRect.bottom + 'px'
   element.style.left = '0'
   element.style.borderColor = realBorderSidelineColor
@@ -138,7 +170,7 @@ const setBorderSidelineBottomStyle = (element, boundingClicentRect) => {
   element.style.width = '100vw'
 }
 
-const setBorderSidelineLeftStyle = (element, boundingClicentRect) => {
+const setBorderSidelineLeftStyle = (element: HTMLElement, boundingClicentRect: DOMRect) => {
   element.style.top = '0'
   element.style.left = boundingClicentRect.left - 1 + 'px'
   element.style.borderColor = realBorderSidelineColor
@@ -147,7 +179,11 @@ const setBorderSidelineLeftStyle = (element, boundingClicentRect) => {
 }
 
 // margin
-const setMarginSidelineTopStyle = (element, computedStyle, boundingClicentRect) => {
+const setMarginSidelineTopStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = getMarginSidelineTop(computedStyle, boundingClicentRect) - 1 + 'px'
   element.style.left = '0'
   element.style.borderColor = realMarginSidelineColor
@@ -155,7 +191,11 @@ const setMarginSidelineTopStyle = (element, computedStyle, boundingClicentRect) 
   element.style.width = '100vw'
 }
 
-const setMarginSidelineRightStyle = (element, computedStyle, boundingClicentRect) => {
+const setMarginSidelineRightStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = '0'
   element.style.left = getMarginSidelineRight(computedStyle, boundingClicentRect) + 'px'
   element.style.borderColor = realMarginSidelineColor
@@ -163,7 +203,11 @@ const setMarginSidelineRightStyle = (element, computedStyle, boundingClicentRect
   element.style.height = '100vh'
 }
 
-const setMarginSidelineBottomStyle = (element, computedStyle, boundingClicentRect) => {
+const setMarginSidelineBottomStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = getMarginSidelineBottom(computedStyle, boundingClicentRect) + 'px'
   element.style.left = '0'
   element.style.borderColor = realMarginSidelineColor
@@ -171,7 +215,11 @@ const setMarginSidelineBottomStyle = (element, computedStyle, boundingClicentRec
   element.style.width = '100vw'
 }
 
-const setMarginSidelineLeftStyle = (element, computedStyle, boundingClicentRect) => {
+const setMarginSidelineLeftStyle = (
+  element: HTMLElement,
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+) => {
   element.style.top = '0'
   element.style.left = getMarginSidelineLeft(computedStyle, boundingClicentRect) - 1 + 'px'
   element.style.borderColor = realMarginSidelineColor
@@ -180,67 +228,67 @@ const setMarginSidelineLeftStyle = (element, computedStyle, boundingClicentRect)
 }
 
 // computed
-const getCoverSidelineTop = (computedStyle, boundingClicentRect) => {
+const getCoverSidelineTop = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return getContentTopPosition(computedStyle, boundingClicentRect)
 }
 
-const getCoverSidelineRight = (computedStyle, boundingClicentRect) => {
+const getCoverSidelineRight = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return getContentRightPosition(computedStyle, boundingClicentRect)
 }
 
-const getCoverSidelineBottom = (computedStyle, boundingClicentRect) => {
+const getCoverSidelineBottom = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return getContentBottomPosition(computedStyle, boundingClicentRect)
 }
 
-const getCoverSidelineLeft = (computedStyle, boundingClicentRect) => {
+const getCoverSidelineLeft = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return getContentLeftPosition(computedStyle, boundingClicentRect)
 }
 
-const getPaddingSidelineTop = (computedStyle, boundingClicentRect) => {
+const getPaddingSidelineTop = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.top + getBorderTopWidth(computedStyle)
 }
 
-const getPaddingSidelineRight = (computedStyle, boundingClicentRect) => {
+const getPaddingSidelineRight = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.right - getBorderRightWidth(computedStyle)
 }
 
-const getPaddingSidelineBottom = (computedStyle, boundingClicentRect) => {
+const getPaddingSidelineBottom = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.bottom - getBorderBottomWidth(computedStyle)
 }
 
-const getPaddingSidelineLeft = (computedStyle, boundingClicentRect) => {
+const getPaddingSidelineLeft = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.left + getBorderLeftWidth(computedStyle)
 }
 
-const getMarginSidelineTop = (computedStyle, boundingClicentRect) => {
+const getMarginSidelineTop = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.top - getMarginTop(computedStyle)
 }
 
-const getMarginSidelineRight = (computedStyle, boundingClicentRect) => {
+const getMarginSidelineRight = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.right + getMarginRight(computedStyle)
 }
 
-const getMarginSidelineBottom = (computedStyle, boundingClicentRect) => {
+const getMarginSidelineBottom = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.bottom + getMarginBottom(computedStyle)
 }
 
-const getMarginSidelineLeft = (computedStyle, boundingClicentRect) => {
+const getMarginSidelineLeft = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   return boundingClicentRect.left - getMarginLeft(computedStyle)
 }
 
-const createElement = id => {
+const createElement = (id: string) => {
   const element = document.createElement('DIV')
   setSidelineStyle(element, id)
   return element
 }
 
-const setSidelineStyle = (element, id) => {
+const setSidelineStyle = (element: HTMLElement, id: string) => {
   element.dataset['inspectElement'] = 'inspectElement'
   element.id = `inspect-element-${id}`
   element.style.position = 'fixed'
   element.style.borderWidth = '0'
   element.style.borderStyle = 'dashed'
-  element.style.zIndex = 9998
+  element.style.zIndex = '9998'
   element.style.pointerEvents = 'none'
 }
 
@@ -266,7 +314,7 @@ const sidelineElements = {
   marginSidelineLeft: createElement('margin-left-sideline'),
 }
 
-export const appendSidelineElements = (computedStyle, boundingClicentRect) => {
+export const appendSidelineElements = (computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   for (const element of Object.values(sidelineElements))
     if (document.body.contains(element) === false) document.body.appendChild(element)
 
