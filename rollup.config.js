@@ -1,14 +1,16 @@
 import del from 'rollup-plugin-delete'
 import copy from 'rollup-plugin-copy'
 import { terser } from 'rollup-plugin-terser'
+import typescript from 'rollup-plugin-typescript2'
 
 const contentScript = {
-  input: './src/contentScript/index.js',
+  input: './src/contentScript/index.ts',
   output: {
     file: 'dist/content-script/index.js',
     format: 'iife',
   },
   plugins: [
+    typescript(),
     del({
       targets: ['dist/manifest.json', 'dist/images', 'dist/content-script'],
     }),

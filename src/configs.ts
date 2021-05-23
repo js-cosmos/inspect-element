@@ -18,30 +18,30 @@ const configs = {
   count: 0,
   dismissed: false,
 }
-const configKeys = Object.keys(configs)
+const configKeys = Object.keys(configs) as (keyof typeof configs)[]
 
 const listeners = configKeys.reduce((listeners, key) => {
   listeners[key] = new Set()
   return listeners
-}, {})
+}, {} as Record<keyof typeof configs, Set<Function>>)
 
 chrome.storage.sync.get(configKeys, values => {
   for (const key of configKeys) {
     if (values[key] !== undefined) {
-      configs[key] = values[key]
+      ;(configs as any)[key] = values[key]
       listeners[key].forEach(fn => fn(configs[key]))
     } else chrome.storage.sync.set({ [key]: configs[key] })
   }
 })
-chrome.storage.sync.onChanged.addListener(changes => {
+;(chrome.storage.sync as any).onChanged.addListener((changes: any) => {
   for (const key of configKeys) {
     if (changes[key]) {
-      configs[key] = changes[key].newValue
+      ;(configs as any)[key] = changes[key].newValue
       listeners[key].forEach(fn => fn(configs[key]))
     }
   }
 })
-export function onChange(key, callback) {
+export function onChange(key: keyof typeof listeners, callback: Function) {
   listeners[key].add(callback)
 }
 

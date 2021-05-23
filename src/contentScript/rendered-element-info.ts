@@ -1,47 +1,47 @@
 import configs, { onChange } from '../configs'
 import { getContentWidth, getContentHeight } from '../util'
 
-let showRenderedElementInfo = undefined
+let showRenderedElementInfo: boolean
 const getShowRenderedElementInfo = () => {
   showRenderedElementInfo = configs.showRenderedElementInfo
 }
 getShowRenderedElementInfo()
 onChange('showRenderedElementInfo', getShowRenderedElementInfo)
 
-const removeOpacity = color => {
+const removeOpacity = (color: string) => {
   return color.slice(0, 7) + 'ee'
 }
 
 // listen color change event
-let coverColor = undefined
+let coverColor: string
 const updateCoverColor = () => {
   coverColor = removeOpacity(configs.coverColor)
 }
 updateCoverColor()
 onChange('coverColor', updateCoverColor)
 
-let paddingColor = undefined
+let paddingColor: string
 const updatePaddingColor = () => {
   paddingColor = removeOpacity(configs.paddingColor)
 }
 updatePaddingColor()
 onChange('paddingColor', updatePaddingColor)
 
-let borderColor = undefined
+let borderColor: string
 const updateBorderColor = () => {
   borderColor = removeOpacity(configs.borderColor)
 }
 updateBorderColor()
 onChange('borderColor', updateBorderColor)
 
-let marginColor = undefined
+let marginColor: string
 const updateMarginColor = () => {
   marginColor = removeOpacity(configs.marginColor)
 }
 updateMarginColor()
 onChange('marginColor', updateMarginColor)
 
-const normalizeSize = size => {
+const normalizeSize = (size: string) => {
   size = parseFloat(size)
     .toFixed(3)
     .replace(/(.*\..*?)0+/g, '$1')
@@ -49,17 +49,17 @@ const normalizeSize = size => {
   return size === '0' ? '-' : size
 }
 
-const normalizeContentSize = size => {
+const normalizeContentSize = (size: number) => {
   return size
     .toFixed(3)
     .padStart(10, ' ')
-    .replaceAll(' ', '&nbsp;')
+    .replace(/\s/g, '&nbsp;')
     .replace(/(0+)$/g, s => '&nbsp;'.repeat(s.length))
     .replace('.&nbsp;', '&nbsp;&nbsp;')
 }
 
 // cover
-const updateCover = (element, computedStyle, boundingClicentRect) => {
+const updateCover = (element: HTMLElement, computedStyle: CSSStyleDeclaration, boundingClicentRect: DOMRect) => {
   element.innerHTML =
     `w ${normalizeContentSize(getContentWidth(computedStyle, boundingClicentRect))}` +
     '<br>' +
@@ -68,64 +68,64 @@ const updateCover = (element, computedStyle, boundingClicentRect) => {
 }
 
 // padding
-const updatePaddingTop = (element, computedStyle) => {
+const updatePaddingTop = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingTop)}</p>`
   element.style.backgroundColor = paddingColor
 }
 
-const updatePaddingRight = (element, computedStyle) => {
+const updatePaddingRight = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingRight)}</p>`
   element.style.backgroundColor = paddingColor
 }
 
-const updatePaddingBottom = (element, computedStyle) => {
+const updatePaddingBottom = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingBottom)}</p>`
   element.style.backgroundColor = paddingColor
 }
 
-const updatePaddingLeft = (element, computedStyle) => {
+const updatePaddingLeft = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.paddingLeft)}</p>`
   element.style.backgroundColor = paddingColor
 }
 
 // border
-const updateBorderTop = (element, computedStyle) => {
+const updateBorderTop = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderTopWidth)}</p>`
   element.style.backgroundColor = borderColor
 }
 
-const updateBorderRight = (element, computedStyle) => {
+const updateBorderRight = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderRightWidth)}</p>`
   element.style.backgroundColor = borderColor
 }
 
-const updateBorderBottom = (element, computedStyle) => {
+const updateBorderBottom = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderBottomWidth)}</p>`
   element.style.backgroundColor = borderColor
 }
 
-const updateBorderLeft = (element, computedStyle) => {
+const updateBorderLeft = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.borderLeftWidth)}</p>`
   element.style.backgroundColor = borderColor
 }
 
 // margin
-const updateMarginTop = (element, computedStyle) => {
+const updateMarginTop = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginTop)}</p>`
   element.style.backgroundColor = marginColor
 }
 
-const updateMarginRight = (element, computedStyle) => {
+const updateMarginRight = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginRight)}</p>`
   element.style.backgroundColor = marginColor
 }
 
-const updateMarginBottom = (element, computedStyle) => {
+const updateMarginBottom = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginBottom)}</p>`
   element.style.backgroundColor = marginColor
 }
 
-const updateMarginLeft = (element, computedStyle) => {
+const updateMarginLeft = (element: HTMLElement, computedStyle: CSSStyleDeclaration) => {
   element.innerHTML = `<p style="margin-bottom: 0;">${normalizeSize(computedStyle.marginLeft)}</p>`
   element.style.backgroundColor = marginColor
 }
@@ -134,18 +134,18 @@ const templatePaddingRe = /^(\w+)Padding\d+$/
 const updateTemplatePadding = () => {
   for (const key in elements) {
     const [, type] = key.match(templatePaddingRe) ?? []
-    if (type === 'padding') elements[key].style.backgroundColor = paddingColor
-    if (type === 'border') elements[key].style.backgroundColor = borderColor
-    if (type === 'margin') elements[key].style.backgroundColor = marginColor
+    if (type === 'padding') (elements as any)[key].style.backgroundColor = paddingColor
+    if (type === 'border') (elements as any)[key].style.backgroundColor = borderColor
+    if (type === 'margin') (elements as any)[key].style.backgroundColor = marginColor
   }
 }
 
-const createElement = id => {
+const createElement = (id: string) => {
   const element = document.createElement('DIV')
   element.dataset['inspectElement'] = 'inspectElement'
   element.id = `inspect-element-rendered-element-info-${id}`
   element.style.gridArea = id
-  element.style.zIndex = 9997
+  element.style.zIndex = '9997'
   element.style.display = 'flex'
   element.style.height = '100%'
   element.style.alignItems = 'center'
@@ -177,7 +177,7 @@ wrapper.style.gridTemplateAreas = `
 `
 wrapper.style.textAlign = 'center'
 
-const updatePosition = event => {
+const updatePosition = (event: MouseEvent) => {
   wrapper.style.top = 'unset'
   wrapper.style.right = 'unset'
   wrapper.style.bottom = 'unset'
@@ -189,14 +189,14 @@ const updatePosition = event => {
   const clientY = event.clientY
 
   if (clientY < halfOfViewPortClientHeight) {
-    wrapper.style.bottom = 0
+    wrapper.style.bottom = '0'
   } else {
-    wrapper.style.top = 0
+    wrapper.style.top = '0'
   }
   if (clientX < halfOfViewPortClientWidth) {
-    wrapper.style.right = 0
+    wrapper.style.right = '0'
   } else {
-    wrapper.style.left = 0
+    wrapper.style.left = '0'
   }
 }
 
@@ -261,7 +261,11 @@ const elements = {
 
 for (const element of Object.values(elements)) wrapper.appendChild(element)
 
-export const appendRenderedElementInfo = (computedStyle, boundingClicentRect, event) => {
+export const appendRenderedElementInfo = (
+  computedStyle: CSSStyleDeclaration,
+  boundingClicentRect: DOMRect,
+  event: MouseEvent,
+) => {
   if (showRenderedElementInfo === false) return
   if (document.body.contains(wrapper) === false) document.body.appendChild(wrapper)
 
@@ -271,20 +275,20 @@ export const appendRenderedElementInfo = (computedStyle, boundingClicentRect, ev
 
   updateTemplatePadding()
 
-  updatePaddingTop(elements.paddingTop, computedStyle, boundingClicentRect)
-  updatePaddingRight(elements.paddingRight, computedStyle, boundingClicentRect)
-  updatePaddingBottom(elements.paddingBottom, computedStyle, boundingClicentRect)
-  updatePaddingLeft(elements.paddingLeft, computedStyle, boundingClicentRect)
+  updatePaddingTop(elements.paddingTop, computedStyle)
+  updatePaddingRight(elements.paddingRight, computedStyle)
+  updatePaddingBottom(elements.paddingBottom, computedStyle)
+  updatePaddingLeft(elements.paddingLeft, computedStyle)
 
-  updateBorderTop(elements.borderTop, computedStyle, boundingClicentRect)
-  updateBorderRight(elements.borderRight, computedStyle, boundingClicentRect)
-  updateBorderBottom(elements.borderBottom, computedStyle, boundingClicentRect)
-  updateBorderLeft(elements.borderLeft, computedStyle, boundingClicentRect)
+  updateBorderTop(elements.borderTop, computedStyle)
+  updateBorderRight(elements.borderRight, computedStyle)
+  updateBorderBottom(elements.borderBottom, computedStyle)
+  updateBorderLeft(elements.borderLeft, computedStyle)
 
-  updateMarginTop(elements.marginTop, computedStyle, boundingClicentRect)
-  updateMarginRight(elements.marginRight, computedStyle, boundingClicentRect)
-  updateMarginBottom(elements.marginBottom, computedStyle, boundingClicentRect)
-  updateMarginLeft(elements.marginLeft, computedStyle, boundingClicentRect)
+  updateMarginTop(elements.marginTop, computedStyle)
+  updateMarginRight(elements.marginRight, computedStyle)
+  updateMarginBottom(elements.marginBottom, computedStyle)
+  updateMarginLeft(elements.marginLeft, computedStyle)
 }
 
 export const removeRenderedElementInfo = () => {

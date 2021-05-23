@@ -1,7 +1,7 @@
 import configs, { onChange } from '../configs'
 
-let actionKeyList = undefined
-let shouldPrintTargetElement = undefined
+let actionKeyList: string[]
+let shouldPrintTargetElement: boolean
 
 const getActionKeyList = () => {
   actionKeyList = configs.modifierKeyCombination
@@ -16,10 +16,10 @@ getshouldPrintTargetElement()
 onChange('modifierKeyCombination', getActionKeyList)
 onChange('shouldPrintTargetElement', getshouldPrintTargetElement)
 
-export const printTargetElement = (event, target) => {
+export const printTargetElement = (event: MouseEvent, target: EventTarget) => {
   if (shouldPrintTargetElement === false) return
   for (let key of actionKeyList) {
-    if (event[key] === false) return
+    if ((event as any)[key] === false) return
   }
 
   console.log(target)
