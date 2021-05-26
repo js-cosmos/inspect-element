@@ -158,12 +158,13 @@ const createElement = id => {
 
 const wrapper = createElement('wrapper')
 wrapper.style.position = 'fixed'
+wrapper.style.right = '0'
+wrapper.style.bottom = '0'
 wrapper.style.display = 'grid'
 wrapper.style.fontFamily = 'monospace'
 wrapper.style.fontSize = '12px'
 wrapper.style.paddingLeft = '0'
 wrapper.style.paddingRight = '0'
-wrapper.style.height = 'unset'
 wrapper.style.gridTemplateAreas = `
 "margin-padding1  margin-padding2  margin-padding3  margin-top     margin-padding4  margin-padding5  margin-padding6 "
 "margin-padding7  border-padding1  border-padding2  border-top     border-padding3  border-padding4  margin-padding8 "
@@ -176,28 +177,15 @@ wrapper.style.gridTemplateAreas = `
 "margin-padding15 margin-padding16 margin-padding17 margin-bottom  margin-padding18 margin-padding19 margin-padding20"
 `
 wrapper.style.textAlign = 'center'
+wrapper.style.transition = 'transform .4s'
 
 const updatePosition = event => {
-  wrapper.style.top = 'unset'
-  wrapper.style.right = 'unset'
-  wrapper.style.bottom = 'unset'
-  wrapper.style.left = 'unset'
-
-  const halfOfViewPortClientWidth = document.documentElement.clientWidth / 2
-  const halfOfViewPortClientHeight = document.documentElement.clientHeight / 2
-  const clientX = event.clientX
-  const clientY = event.clientY
-
-  if (clientY < halfOfViewPortClientHeight) {
-    wrapper.style.bottom = 0
-  } else {
-    wrapper.style.top = 0
-  }
-  if (clientX < halfOfViewPortClientWidth) {
-    wrapper.style.right = 0
-  } else {
-    wrapper.style.left = 0
-  }
+  if (
+    event.clientX > document.documentElement.clientWidth - 300 &&
+    event.clientY > document.documentElement.clientHeight - 300
+  ) {
+    wrapper.style.transform = 'translateY(-300px)'
+  } else wrapper.style.transform = 'translateY(0)'
 }
 
 const elements = {
