@@ -165,6 +165,7 @@ wrapper.style.fontFamily = 'monospace'
 wrapper.style.fontSize = '12px'
 wrapper.style.paddingLeft = '0'
 wrapper.style.paddingRight = '0'
+wrapper.style.height = 'unset'
 wrapper.style.gridTemplateAreas = `
 "margin-padding1  margin-padding2  margin-padding3  margin-top     margin-padding4  margin-padding5  margin-padding6 "
 "margin-padding7  border-padding1  border-padding2  border-top     border-padding3  border-padding4  margin-padding8 "
