@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.5.0",
+  "version": "1.6.0",
   "name": "Inspect Element",
   "description": "Inspect element for content, and margin.",
   "permissions": ["storage"],
